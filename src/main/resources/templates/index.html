@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .logout-button {
+      background-color: #ff0000; /* 배경 색상 설정 */
+      color: #ffffff; /* 텍스트 색상 설정 */
+      padding: 10px 20px; /* 패딩 설정 */
+      border: none; /* 테두리 제거 */
+      cursor: pointer; /* 커서 스타일 변경 */
+      font-size: 16px; /* 폰트 크기 설정 */
+    }
+
+    .logout-button:hover {
+      background-color: #cc0000; /* 마우스 오버시 배경 색상 변경 */
+    }
+
+    /* 회원가입 */
+    .field {
+      border: 0;
+      margin: 20px 0;
+    }
+  </style>
+  <title>메인페이지</title>
+</head>
+<body>
+<h2>메인페이지</h2>
+
+<div th:if="${loginMember != null}">
+  <p>안녕하세요, <span th:text="${loginMember.name}"></span> 님!</p>
+  <a th:href="@{/mypage}">마이페이지로 이동</a>
+
+  <form action="/logout" method="post">
+    <button class="logout-button" type="submit">로그아웃</button>
+  </form>
+
+</div>
+
+<div th:unless="${loginMember != null}">
+  <p>로그인되지 않았습니다.</p>
+  <a th:href="@{/login}">로그인 페이지로 이동</a>
+  <a th:href="@{/signup}">회원가입 페이지로 이동</a>
+</div>
+
+</body>
+</html>

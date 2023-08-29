@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이페이지</title>
+</head>
+<body>
+<!-- header -->
+<!-- // header -->
+
+<div class="main">
+  <div class="container">
+    <h2 class="title">마이페이지</h2>
+
+    <div>
+      <p>이름: <span th:text="${memberResponse.name}"></span></p>
+      <p>이메일: <span th:text="${memberResponse.email}"></span></p>
+      <p>휴대폰번호: <span th:text="${memberResponse.phone}"></span></p>
+    </div>
+  </div>
+</div>
+
+<!-- footer -->
+<p class="footer">Copyright 2023. Bamflix All rights reserved.</p>
+<!-- //footer -->
+
+</body>
+</html>
