@@ -1,46 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>로그인</title>
-  <link rel="stylesheet" th:href="@{/css/member/common.css}"/>
-  <link rel="stylesheet" th:href="@{/css/member/login-join.css}"/>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description"
+        content="Netflix,TV, PC, Mac, Mobile, Pad, Streaming"/>
+  <title>Bamflix Korea Login Page</title>
+  <link rel="shortcut icon"
+        href="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico">
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/floating-labels/">
+
+  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/index/css/style.css}"/>
 </head>
+
 <body>
-<!-- header -->
-<!-- // header -->
+<main class="container-fluid">
+  <!---->
+  <section id="backGround">
+    <div class="container-fluid relative">
+      <header>
+        <img th:src="@{/css/index/img/logo-Netflix.png}" alt="Responsive image LOGO"
+             class="img-fluid"/>
+      </header>
+    </div>
+    <div class="jumbotron jumbotron-fluid relative mt-5">
+      <h1>Welcome to 🌰flix</h1>
+      <p class="lead">밤플릭스는 1인 시청자를 위한 착한 곳</p>
+    </div>
+  </section>
 
-<div class="main">
-  <div class="container">
-    <h2 class="title">로그인</h2>
-    <p class="description">아이디와 비밀번호를 입력하고 로그인하세요</p>
+  <div class="main">
+    <div class="container">
+      <h2 class="title">로그인</h2>
+      <p class="description">아이디와 비밀번호를 입력하고 즐겨요</p>
 
-    <!-- 수정: onsubmit 이벤트 핸들러 제거 -->
-    <form class="login">
-      <div>
-        <label class="label-width" for="user-id">아이디</label>
-        <input type="text" id="user-id" name="loginId" required>
-      </div>
-      <div>
-        <label class="label-width" for="user-pw">비밀번호</label>
-        <input type="password" id="user-pw" name="password" required>
-      </div>
-      <div>
-        <input type="checkbox" id="save-id" name="saveId">
-        <label for="save-id">아이디 저장</label>
-      </div>
-      <button class="submit-button" type="button" onclick="login()">로그인</button>
-    </form>
-    <a class="signup-button" th:href="@{/signup}">회원가입</a>
+      <form class="login">
+        <div>
+          <label for="user-id">아이디</label>
+          <input type="text" id="user-id" name="loginId" required>
+        </div>
+        <div>
+          <label for="user-pw">비밀번호</label>
+          <input type="password" id="user-pw" name="password" required>
+        </div>
+        <button class="submit-button" type="button" onclick="login()">로그인</button>
+      </form>
+      <a class="signup-button" th:href="@{/signup}">회원가입</a>
+    </div>
   </div>
-</div>
+</main>
 
-<!-- footer -->
-<p class="footer">Copyright 2023. Bamflix All rights reserved.</p>
-<!-- //footer -->
+<script th:src="@{/index/js/main.js/}"></script>
+<script th:src="@{/index/js/bootstrap.bundle.min.js/}"></script>
 
 <script th:src="@{/js/function.js}"></script>
 <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
