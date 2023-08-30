@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>임시 메인페이지</title>
+</head>
+<body>
+<h1>밤플릭스 임시 메인페이지</h1>
+<h3>**로그인 되어 있다 가정된 상태임</h3>
+
+<span>
+    로그인 / <img src="https://artfeel.co.kr/web/product/big/o_Icon_011.jpg" alt="basket" style="width: 20px; height: 20px;">장바구니
+</span>
+<br>
+<br>
+<br>
+<button type="button" onclick="location.href='subscription.html'" th:onclick="|location.href='@{/subscription}'|">구독권 결제하기</button>
+
+</body>
+</html>

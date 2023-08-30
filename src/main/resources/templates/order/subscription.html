@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description"
+        content="Netflix,TV, PC, Mac, Mobile, Pad, Streaming"/>
+  <title>Bamflix Korea - subscription page</title>
+  <link rel="shortcut icon"
+        href="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico">
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/floating-labels/">
+
+  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/index/css/style.css}"/>
+</head>
+<script>
+</script>
+<body>
+<main class="container-fluid">
+  <!---->
+  <section id="backGround">
+    <div class="container-fluid relative">
+      <header>
+        <img th:src="@{/css/index/img/logo-Netflix.png}" alt="Responsive image LOGO"
+             class="img-fluid"/>
+      </header>
+    </div>
+    <div class="jumbotron jumbotron-fluid relative mt-5">
+      <h1>Welcome to 🌰flix</h1>
+      <p class="lead">밤플릭스는 1인 시청자를 위한 착한 곳</p>
+      <div th:unless="${loginMember == null}">
+
+      </div>
+    </div>
+  </section>
+  <!--------------03 equal section-->
+  <section>
+    <div class="container my-5">
+      <div class="row">
+        <form action="/order" method="post">
+          <table border="1" th:each="data : ${subscriptionList}">
+            <tr>
+              <td rowspan="3">우린 혼자여도 프리미엄 본다!</td>
+              <td><span th:text="${data.name}"></span></td>
+            </tr>
+            <tr>
+              <td>방송+영화 1080p FHD + 4K 화질</td>
+            </tr>
+            <tr>
+              <td>월 <span th:text="${data.price}"></span>원 /(<span th:text="${data.validityDays}"></span>일)</td>
+            </tr>
+          </table>
+          <br>
+          <button type="submit">론리미엄 구독권 구매하기</button>
+          <a type="button" class="btn btn-danger" th:href="@{/order?from=subscriptionPage}">론리미엄 구독권 결제하기</a>
+        </form>
+        <br>
+        <a href="main.html" th:href="|@{/}|" style="font-size: small; color: dimgray">메인으로</a>
+      </div>
+    </div>
+  </section>
+</main>
+<!---footer---------->
+<footer class="page-footer font-small blue text-muted">
+  <div>
+    <p class="footer-copyright pt-5 pb-2 font-weight-lighter text-muted">
+      Copyright 2023. 🌰flix (Bamflix) All rights reserved.
+    </p>
+  </div>
+</footer>
+<!---// footer---------->
+
+<script th:src="@{/index/js/main.js/}"></script>
+<script th:src="@{/index/js/bootstrap.bundle.min.js/}"></script>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+
+</body>
+</html>
+

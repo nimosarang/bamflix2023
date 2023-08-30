@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>주문/결제 페이지</title>
+</head>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!--<script src="/js/order.js"></script>-->
+
+<script>
+    function payment(){
+        const data = {
+            merchant_uid: createOrderNum(),
+            name : getNames(),
+            amount : getAmount(),
+            buyer_email: document.querySelector("input[name=buyer_email]").value,
+            buyer_name: document.querySelector("input[name=buyer_name]").value,
+            buyer_tel: document.querySelector("input[name=buyer_phone]").value
+        }
+
+        requestPay(data);
+    }
+
+    function createOrderNum(){
+        const today = new Date();
+        const hours = today.getHours(); // 시
+        const minutes = today.getMinutes();  // 분
+        const seconds = today.getSeconds();  // 초
+        const milliseconds = today.getMilliseconds();
+        const makeMerchantUid = "IMP" + hours +  minutes + seconds + milliseconds;
+
+        return makeMerchantUid;
+    }
+
+    function getNames(){
+        const nameList = document.querySelectorAll("input[name=product_name]");
+        let names = "";
+
+        nameList.forEach((name, index) => {
+            if(index === nameList.length -1){
+               names += name.value;
+            }else {
+                names += name.value + ", ";
+            }
+        });
+
+        return names;
+    }
+
+    function getAmount(){
+        const amountList = document.querySelectorAll("input[name=product_price]");
+        let amounts = "";
+
+        amountList.forEach((amount, index) => {
+            if(index === amountList.length -1){
+                amounts += amount.value;
+            }else {
+                amounts += amount.value + ", ";
+            }
+        });
+
+        return amounts;
+    }
+
+    var IMP = window.IMP;
+    IMP.init('imp00155867')
+
+    function requestPay(data) {
+        IMP.request_pay({
+            pg : 'html5_inicis',
+            pay_method : 'card',
+            merchant_uid: data.merchant_uid,
+            name : data.name,
+            amount : data.amount,
+            buyer_email: data.buyer_email,
+            buyer_name: data.buyer_name,
+            buyer_tel: data.buyer_tel,
+            display: { card_quote: [3] }
+        }, function (rsp) { // callback
+            if (rsp.success) {
+                console.log(rsp);
+                //결제 성공시 로직
+                data.imp_uid = rsp.imp_uid;
+                data.merchant_uid = rsp.merchant_uid;
+                paymentComplete(data);
+
+            } else {
+                console.log(rsp);
+                alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+            }
+        });
+    }
+
+    function paymentComplete(data){
+
+        $.ajax({
+            url: "/order/payment/complete",
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            data: data,
+        })
+
+    }
+
+    function CheckOk(){
+        const agreeChk = document.getElementById('order_agreement');
+        const paymentChk = document.getElementsByName('payment');
+
+        const is_checked = agreeChk.checked;
+
+        var paymentType = null;
+        var idx = 0;
+        for(var i = 0; i < paymentChk.length; i++){
+            if(paymentChk[i].checked == true){
+                paymentType = paymentChk[i].value;
+                idx = i;
+            }
+        }
+
+        if(paymentType === null){
+            alert("결제 수단을 선택하세요.")
+        }
+
+        if(is_checked === false){
+            alert("주문 동의를 해야 결제 가능합니다.")
+        }else{
+            if(paymentChk[idx].value === "credit"){
+                payment();
+            }else{
+                paymentCash();
+            }
+        }
+    }
+
+    function paymentCash(){
+        alert("현금결제입니다.");
+        location.href="/payment.html";
+    }
+</script>
+
+<body>
+<h1>주문/결제 페이지입니다</h1>
+<h3>**로그인 되어 있다 가정된 상태임</h3>
+<br>
+<br>
+<form action="/order/payment/complete" method="post">
+    <table border="1">
+        <tr>
+            <td>구매자명</td>
+            <td colspan="4">
+                <span th:text="${loginMember.name}"></span>
+                <input type="hidden" name="buyer_name" th:value="${loginMember.name}">
+                <input type="hidden" name="buyer_email" th:value="${loginMember.email}">
+                <input type="hidden" name="buyer_phone" th:value="${loginMember.phone}">
+            </td>
+        </tr>
+        <div th:if="${showSubscription}">
+        <tr>
+            <td colspan="5">구독권 구매</td>
+        </tr>
+        <tr th:each="data : ${selectList}">
+            <td><img src="/css/order/img/lonely.png" alt="lonely_icon" style="width: 50px; height: 50px"></td>
+            <td>
+                <span th:text="${data.name}"></span>
+                <input type="hidden" name="product_name" th:value="${data.name}">
+            </td>
+            <td>
+                <span th:text="${data.price}">원 /(30일)</span>
+                <input type="hidden" name="product_price" th:value="${data.price}">
+            </td>
+            <td>삭제<img src="https://cdn.icon-icons.com/icons2/1144/PNG/512/deletebutton_80861.png" alt="delete_icon" style="width: 10px; height: 10px"></td>
+        </tr>
+        </div>
+        <div th:if="${showIndividual}">
+        <tr>
+            <td colspan="5">개별 구매</td>
+        </tr>
+        <tr>
+            <td>이미지</td>
+            <td>컨텐츠명</td>
+            <td>상품가격</td>
+            <td>삭제버튼</td>
+        </tr>
+        </div>
+        <tr>
+            <td colspan="5">결제수단</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input type="radio" id="pay_credit" name="payment" value="credit">신용카드
+                <input type="radio" id="pay_cash" name="payment" value="cash">계좌이체
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <input type="checkbox" id="order_agreement" name="order_agreement" value="agreeOk">
+                주문 내용을 확인했으며, 아래 내용에 모두 동의합니다.
+            </td>
+        </tr>
+    </table>
+    <button type="button" onclick="location.href='subscription.html'" th:onclick="|location.href='@{/subscription}'|">
+        취소
+    </button>
+    <button type="button" onclick="CheckOk()">결제하기</button>
+</form>
+</body>
+</html>
