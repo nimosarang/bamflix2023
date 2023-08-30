@@ -25,6 +25,12 @@ public class MemberController {
         return "member/login";
     }
 
+    // 회원가입 페이지
+    @GetMapping("/signup")
+    public String openSignup() {
+        return "member/signup";
+    }
+
     // 회원 정보 저장 (회원가입)
     @PostMapping("/members")
     @ResponseBody

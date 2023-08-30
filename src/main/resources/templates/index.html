@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description"
+        content="Netflix,TV, PC, Mac, Mobile, Pad, Streaming"/>
+  <title>Bamflix Korea</title>
+  <link rel="shortcut icon"
+        href="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico">
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/floating-labels/">
+
+  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/index/css/style.css}"/>
+</head>
+
+<body>
+<main class="container-fluid">
+  <!---->
+  <section id="backGround">
+    <div class="container-fluid relative">
+      <header>
+        <img th:src="@{/css/index/img/logo-Netflix.png}" alt="Responsive image LOGO"
+             class="img-fluid"/>
+      </header>
+    </div>
+    <div class="jumbotron jumbotron-fluid relative mt-5">
+      <h1>Welcome to 🌰flix</h1>
+      <p class="lead">밤플릭스는 1인 시청자를 위한 착한 곳</p>
+      <div th:unless="${loginMember != null}">
+        <a type="button" class="btn btn-danger" th:href="@{/login}">Login</a>
+      </div>
+    </div>
+  </section>
+  <!--------------03 equal section-->
+  <section>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-12 col-lg-6 text-lg-left">
+          <h2>TV로 즐기세요</h2>
+          <p> 스마트 TV, PlayStation, Xbox, Chromecast, Apple TV, 블루레이 플레이어 등 다양한 디바이스에서 시청하세요.</p>
+        </div>
+        <div class="col-12 col-lg-6">
+          <img th:src="@{/css/index/img/television.png}" alt="Responsive image television"
+               class="img-fluid"/>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <section>
+    <div class="container revers my-5">
+      <div class="row">
+        <div class="col-12 col-lg-6 ml-6 order-first order-lg-last text-lg-left">
+          <h2>즐겨 보는 콘텐츠를 저장해 오프라인으로 시청하세요</h2>
+          <p>광고 없는 멤버십에서만 이용 가능합니다.</p>
+        </div>
+        <div class="col-12 col-lg-6">
+          <img th:src="@{/css/index/img/mobile.png}" alt="Responsive image mobile"
+               class="img-fluid"/>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <section>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-12 col-lg-6 text-lg-left">
+          <h2>어디서나 자유롭게 시청하세요</h2>
+          <p>각종 영화와 시리즈를 스마트폰, 태블릿, 노트북, TV에서 무제한으로 스트리밍하세요.</p>
+        </div>
+        <div class="col-12 col-lg-6">
+          <img th:src="@{/css/index/img/devices.png}" alt="Responsive image device"
+               class="img-fluid"/>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!---footer---------->
+<footer class="page-footer font-small blue text-muted">
+  <div>
+    <p class="footer-copyright pt-5 pb-2 font-weight-lighter text-muted">
+      Copyright 2023. 🌰flix (Bamflix) All rights reserved.
+    </p>
+  </div>
+</footer>
+<!---// footer---------->
+
+<script th:src="@{/index/js/main.js/}"></script>
+<script th:src="@{/index/js/bootstrap.bundle.min.js/}"></script>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+
+</body>
+</html>

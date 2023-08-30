@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bamflix.domain.content.ContentMapper">
+    <select id="getList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, original_url, thumb_url, uploaded_at, create_country, create_year, is_subscribe_yn, director, price, delete_yn
+        from content where delete_yn = 0;
+    </select>
+
+    <insert id="save" keyProperty="id" useGeneratedKeys="true" parameterType="com.bamflix.domain.content.ContentRequest">
+        insert into content (id, title, summary, original_url, uploaded_at, create_country, create_year, is_subscribe_yn, director, price, delete_yn)
+        VALUES (
+                #{id},
+                #{title},
+                #{summary},
+                #{originalUrl},
+                now(),
+                #{createCountry},
+                #{createYear},
+                #{isSubscribeYn},
+                #{director},
+                #{price},
+                0
+               )
+    </insert>
+
+    <update id="update" keyProperty="id" useGeneratedKeys="true" parameterType="com.bamflix.domain.content.ContentRequest">
+        update content
+        set summary=#{summary}, original_url=#{originalUrl}, modified_date = now(), create_country=#{createCountry}, create_year=#{createYear}, is_subscribe_yn=#{isSubscribeYn}, director=#{director}, price=#{price}, delete_yn=#{deleteYn}
+        where title = #{title}
+    </update>
+
+    <update id="delete" keyProperty="id" useGeneratedKeys="true" parameterType="com.bamflix.domain.content.ContentRequest">
+        update content
+        set modified_date = now(),  delete_yn= 1
+        where title = #{title}
+    </update>
+</mapper>
