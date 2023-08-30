@@ -1,5 +1,6 @@
 package com.bamflix.domain.order;
 
+import com.bamflix.domain.member.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,7 @@ public class OrderController {
 
     //구독권 안내 페이지
     @GetMapping("/subscription")
-    public String subscription(Model model){
+    public String subscription(Model model) {
 
 //        String referer = request.getHeader("referer");
 //        request.getSession().setAttribute("subscriptionSession", referer);
@@ -42,35 +43,42 @@ public class OrderController {
 
     //구독권 결제 페이지
     @GetMapping("/order")
-    public String orderPage(@RequestParam(name="from", required = false) String from, Model model){
+    public String orderPage(String from, Model model, HttpSession session, Long id) {
 //        request.getParameter("subscriptionPage");
 
+        MemberResponse loginMember = (MemberResponse) session.getAttribute("loginMember");
 
-        if("subscriptionPage".equals(from)){
+        if ("subscriptionPage".equals(from)) {
             model.addAttribute("showSubscription", true);
             model.addAttribute("showIndividual", false);
 
-            List<SubscriptionResponse> selectList = orderService.selectSubscription();
+            id = 2L;
+            List<SubscriptionResponse> selectList = orderService.selectSubscription(id);
             model.addAttribute("selectList", selectList);
+            model.addAttribute("loginMember", loginMember);
+//            return "order/order";
 
-        }else if ("individual".equals(from)){
+        } else if ("individual".equals(from)) {
             model.addAttribute("showIndividual", true);
             model.addAttribute("showSubscription", false);
         }
-
         return "order/order";
     }
 
     //카드결제 완료 페이지
     @PostMapping("/order/payment/complete")
-    public String paymentComplete(HttpSession session, OrderInfo orderInfo,
-                                  long totalPrice) throws IOException {
+    public String paymentComplete(@RequestBody String imp_uid, HttpSession session, OrderInfo orderInfo,
+                                  Long totalPrice) throws IOException {
 
         String token = orderService.getToken();
 
         System.out.println("토큰 : " + token);
 
+        System.out.println("imp_uid request : " + imp_uid);
+        System.out.println("orderInfo.getImpUid : " + orderInfo.getImpUid());
+
         int amount = orderService.paymentInfo(orderInfo.getImpUid(), token);
+
 
         /* 장바구니 및 총액 확인
         CartList cartList = (CartList) session.getAttribute("cartList");
@@ -88,6 +96,11 @@ public class OrderController {
         
          */
 
+        return "order/payment";
+    }
+
+    @GetMapping("/order/payment/complete")
+    public String payment() {
         return "order/payment";
     }
 

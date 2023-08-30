@@ -27,8 +27,8 @@ public class OrderService {
     }
 
     //선택된 구독권 DB정보 조회
-    public List<SubscriptionResponse> selectSubscription(){
-        return orderMapper.selectSubscription();
+    public List<SubscriptionResponse> selectSubscription(Long id){
+        return orderMapper.selectSubscription(id);
     }
 
     //결제api Token 가져오기
@@ -97,7 +97,7 @@ public class OrderService {
 
         conn = (HttpsURLConnection) url.openConnection();
 
-        conn.setRequestMethod("GET");
+        conn.setRequestMethod("get");
         conn.setRequestProperty("Authorization", access_token);
         conn.setDoOutput(true);
 

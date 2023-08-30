@@ -9,6 +9,9 @@ import lombok.Setter;
 @Builder
 public class OrderRequest {
 
-
+    private Long id;
+    private String name;
+    private int validityDays;
+    private int price;
 
 }

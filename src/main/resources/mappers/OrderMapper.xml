@@ -11,7 +11,7 @@
     <select id="selectSubscription" resultType="com.bamflix.domain.order.SubscriptionResponse">
         select id, name, validity_days, price
         from subscription
-        where id in (#{id});
+        where id = #{id}
     </select>
 
 </mapper>

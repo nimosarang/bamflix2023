@@ -9,7 +9,7 @@ public interface OrderMapper {
 
     List<SubscriptionResponse> getSubscription();
 
-    List<SubscriptionResponse> selectSubscription();
+    List<SubscriptionResponse> selectSubscription(Long id);
 
 
 }
