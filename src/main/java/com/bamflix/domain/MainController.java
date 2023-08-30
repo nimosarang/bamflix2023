@@ -20,14 +20,14 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/main")
-    public String showContentMainPage(HttpSession session, Model model) {
-        MemberResponse loginMember = (MemberResponse) session.getAttribute("loginMember");
-
-        model.addAttribute("loginMember", loginMember);
-
-        return "content/main";
-    }
+//    @GetMapping("/main")
+//    public String showContentMainPage(HttpSession session, Model model) {
+//        MemberResponse loginMember = (MemberResponse) session.getAttribute("loginMember");
+//
+//        model.addAttribute("loginMember", loginMember);
+//
+//        return "content/main";
+//    }
 
 }
 

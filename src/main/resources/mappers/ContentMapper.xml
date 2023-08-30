@@ -4,18 +4,18 @@
 
 <mapper namespace="com.bamflix.domain.content.ContentMapper">
     <select id="getList" resultType="com.bamflix.domain.content.ContentResponse">
-        select id, title, summary, original_url, thumb_url, uploaded_at, create_country, create_year, is_subscribe_yn, director, price, delete_yn
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, director, price, delete_yn
         from content where delete_yn = 0;
     </select>
 
     <insert id="save" keyProperty="id" useGeneratedKeys="true" parameterType="com.bamflix.domain.content.ContentRequest">
-        insert into content (id, title, summary, original_url, thumb_url, uploaded_at, create_country, create_year, is_subscribe_yn, director, price, delete_yn)
+        insert into content (id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, director, price, delete_yn)
         VALUES (
                 #{id},
                 #{title},
                 #{summary},
-                #{originalUrl},
-                #{thumbUrl},
+                #{imgName},
+                #{imgPath},
                 now(),
                 #{createCountry},
                 #{createYear},
@@ -28,7 +28,7 @@
 
     <update id="update" keyProperty="id" useGeneratedKeys="true" parameterType="com.bamflix.domain.content.ContentRequest">
         update content
-        set summary=#{summary}, original_url=#{originalUrl}, thumb_url=#{thumbUrl}, modified_date = now(), create_country=#{createCountry}, create_year=#{createYear}, is_subscribe_yn=#{isSubscribeYn}, director=#{director}, price=#{price}, delete_yn=#{deleteYn}
+        set summary=#{summary}, thumb_url=#{thumbUrl}, modified_date = now(), create_country=#{createCountry}, create_year=#{createYear}, is_subscribe_yn=#{isSubscribeYn}, director=#{director}, price=#{price}, delete_yn=#{deleteYn}
         where title = #{title}
     </update>
 

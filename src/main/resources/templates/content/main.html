@@ -71,12 +71,37 @@
     }
 
     /*  card 그룹 */
+    /* 카드 그리드 레이아웃 설정 */
     .card-group {
       margin: 30px 15px 15px 15px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(calc(16.666% - 10px), 1fr)); /* 최대 6개의 열을 생성 */
+      gap: 10px; /* 카드 사이의 간격 설정 */
     }
 
     .card-group > .card {
       margin: 30px;
+    }
+
+    /* 카드 이미지의 너비와 높이 설정 */
+    .card-img-top {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 이미지 비율 유지 */
+    }
+
+    /*!* 카드 그룹 내부의 카드 내용 줄바꿈 설정 (예: 카드 제목이 긴 경우) *!*/
+    /*.card-footer {*/
+    /*  white-space: nowrap;*/
+    /*  overflow: hidden;*/
+    /*  text-overflow: ellipsis;*/
+    /*}*/
+
+    /* 작은 화면 크기에서 카드 그룹을 한 줄에 하나의 카드만 보이도록 설정 */
+    @media screen and (max-width: 768px) {
+      .card-group {
+        grid-template-columns: repeat(1, 1fr); /* 한 줄에 하나의 카드만 표시 */
+      }
     }
   </style>
 </head>
@@ -112,7 +137,8 @@
             안녕하세요, <span th:text="${loginMember.name}"></span> 님!
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" th:href="@{/mypage}" href="#">마이페이지</a></li>
+            <li><a class="dropdown-item" th:href="@{/mypage}">마이페이지</a></li>
+            <li><a class="dropdown-item" th:href="@{/subscription}">구독권 구매</a></li>
             <li>
               <form class="dropdown-item" action="/logout" method="post">
                 <button class="logout-button" type="submit">로그아웃</button>
@@ -180,51 +206,11 @@
 
   <section>
     <div class="card-group">
-      <div class="card">
-        <img th:src="@{/css/index/img/logo-Netflix.png}" class="card-img-top" alt=card1>
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div class="card">
-        <img th:src="@{/css/index/img/logo-Netflix.png}" class="card-img-top" alt="card2">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This card has supporting text below as a natural lead-in to
-            additional content.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div class="card">
-        <img th:src="@{/css/index/img/logo-Netflix.png}" class="card-img-top" alt="card3">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in
-            to additional content. This card has even longer content than the first to show that
-            equal height action.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div class="card">
-        <img th:src="@{/css/index/img/logo-Netflix.png}" class="card-img-top" alt="card4">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in
-            to additional content. This card has even longer content than the first to show that
-            equal height action.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
+      <div class="card" th:each="content : ${contents}">
+        <img th:src="@{${content.getImgPath()}}" class="card-img-top" alt=card1>
+        <!--        <div class="card-footer">-->
+        <!--          <small class="text-muted" th:text="${content.title}">contents title</small>-->
+        <!--        </div>-->
       </div>
     </div>
   </section>

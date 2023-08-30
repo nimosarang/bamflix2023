@@ -2,29 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Main</title>
+  <meta charset="UTF-8">
+  <title>Main</title>
 </head>
-<body  align="center">
+<body align="center">
 <form>
-  <table border="1"  align="center">
+  <table border="1" align="center">
     <tr th:each="cont : ${list}">
-      <td><span th:text= "${cont.id}"></span></td>
-      <td><span th:text= "${cont.title}"></span></td>
-      <td><span th:text= "${cont.summary}"></span></td>
-      <td><span th:text= "${cont.uploadedAt}"></span></td>
-      <td><span th:text= "${cont.createCountry}"></span></td>
-      <td><span th:text= "${cont.createYear}"></span></td>
-      <td><span th:text= "${cont.director}"></span></td>
-      <td><span th:text= "${cont.price}"></span></td>
+      <td><span th:text="${cont.id}"></span></td>
+      <td><img th:src="@{${cont.getImgPath()}}"></td>
+      <td><span th:text="${cont.title}"></span></td>
+      <td><span th:text="${cont.summary}"></span></td>
+      <td><span th:text="${cont.uploadedAt}"></span></td>
+      <td><span th:text="${cont.createCountry}"></span></td>
+      <td><span th:text="${cont.createYear}"></span></td>
+      <td><span th:text="${cont.director}"></span></td>
+      <td><span th:text="${cont.price}"></span></td>
     </tr>
   </table>
 
   <br><br>
 
-  <button type="button" onclick ="location.href='detail.html'" th:onclick="|location.href='@{/write}'|">추가</button>
-  <button type="button" onclick ="location.href='update.html'" th:onclick="|location.href='@{/update}'|">수정</button>
-  <button type="button" onclick ="location.href='delete.html'" th:onclick="|location.href='@{/delete}'|">삭제</button>
+  <button type="button" onclick="location.href='detail.html'"
+          th:onclick="|location.href='@{/write}'|">추가
+  </button>
+  <button type="button" onclick="location.href='update.html'"
+          th:onclick="|location.href='@{/update}'|">수정
+  </button>
+  <button type="button" onclick="location.href='delete.html'"
+          th:onclick="|location.href='@{/delete}'|">삭제
+  </button>
 
 
 </form>

@@ -1,6 +1,7 @@
 package com.bamflix.domain.content;
 
-
+import com.bamflix.domain.member.MemberResponse;
+import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,27 +21,27 @@ public class ContentController {
 
     private Logger logger = LoggerFactory.getLogger(ContentController.class);
 
-    @GetMapping("/detail")
-    public String getList(Model model) {
-        List<ContentResponse> list = contentService.getList();
-        model.addAttribute("list", list);
+    @GetMapping("/main")
+    public String getList(Model model, HttpSession session) {
+        List<ContentResponse> contents = contentService.getList();
+        model.addAttribute("contents", contents);
 
-        return "content/detail";
+        MemberResponse loginMember = (MemberResponse) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
+        return "content/main";
     }
 
     @GetMapping("/write")
-    public String write(Model model, ContentRequest contentRequest) {
-        model.addAttribute("contentRequest", contentRequest);
+    public String write(Model model) {
         return "content/write";
     }
 
-
     @PostMapping("/save")
-    public String save(ContentRequest contentRequest,@RequestParam MultipartFile file) {
+    public String save(ContentRequest content, MultipartFile imgFile) throws Exception {
 
-        contentService.save(contentRequest,file);
+        contentService.saveContent(content, imgFile);
 
-        return "redirect:detail";
+        return "content/detail";
     }
 
     @GetMapping("/update")
