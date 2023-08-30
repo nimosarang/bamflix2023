@@ -1,10 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>로그인 페이지</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description"
+        content="Netflix,TV, PC, Mac, Mobile, Pad, Streaming"/>
+  <title>Bamflix Korea Login Page</title>
+  <link rel="shortcut icon"
+        href="https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.ico">
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/floating-labels/">
+
+  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/index/css/style.css}"/>
 </head>
+
 <body>
+<main class="container-fluid">
+  <!---->
+  <section id="backGround">
+    <div class="container-fluid relative">
+      <header>
+        <img th:src="@{/css/index/img/logo-Netflix.png}" alt="Responsive image LOGO"
+             class="img-fluid"/>
+      </header>
+    </div>
+    <div class="jumbotron jumbotron-fluid relative mt-5">
+      <h1>Welcome to 🌰flix</h1>
+      <p class="lead">밤플릭스는 1인 시청자를 위한 착한 곳</p>
+    </div>
+  </section>
+
+  <div class="main">
+    <div class="container">
+      <h2 class="title">로그인</h2>
+      <p class="description">아이디와 비밀번호를 입력하고 즐겨요</p>
+
+      <form class="login">
+        <div>
+          <label for="user-id">아이디</label>
+          <input type="text" id="user-id" name="loginId" required>
+        </div>
+        <div>
+          <label for="user-pw">비밀번호</label>
+          <input type="password" id="user-pw" name="password" required>
+        </div>
+        <button class="submit-button" type="button" onclick="login()">로그인</button>
+      </form>
+      <a class="signup-button" th:href="@{/signup}">회원가입</a>
+    </div>
+  </div>
+</main>
+
+<script th:src="@{/index/js/main.js/}"></script>
+<script th:src="@{/index/js/bootstrap.bundle.min.js/}"></script>
+
+<script th:src="@{/js/function.js}"></script>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script>
+  // Enter 로그인 이벤트 바인딩
+  window.onload = () => {
+    document.querySelectorAll('#loginId, #password').forEach(element => {
+      element.addEventListener('keyup', (e) => {
+        if (e.keyCode === 13) {
+          login();
+        }
+      })
+    })
+  }
+
+  // 로그인
+  function login() {
+    console.log("login function called")
+    const form = document.querySelector('.login');
+
+    if (!form.loginId.value || !form.password.value) {
+      alert('아이디와 비밀번호를 모두 입력해 주세요.');
+      form.loginId.focus();
+      return false;
+    }
+
+    $.ajax({
+      url: '/login',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        loginId: form.loginId.value,
+        password: form.password.value
+      },
+      async: false,
+      success: function (response) {
+        location.href = '/';
+      },
+      error: function (request, status, error) {
+        alert('아이디와 비밀번호를 확인해 주세요.');
+      }
+    })
+  }
+</script>
 
 </body>
 </html>
