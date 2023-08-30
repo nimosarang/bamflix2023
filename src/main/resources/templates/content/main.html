@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <title>홈 - 밤플릭스</title>
+  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    .navbar {
+      background-color: transparent;
+    }
+
+    .navbar-brand img {
+      max-width: 100px;
+    }
+
+    .navbar-nav {
+      margin-right: auto;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+      color: white;
+      margin-left: 15px;
+    }
+
+    .navbar-light .navbar-nav .nav-link.active {
+      font-weight: bold;
+    }
+
+    .navbar-light .navbar-toggler-icon {
+      background-color: white; /* 햄버거 아이콘의 배경 색상을 흰색으로 설정 */
+    }
+
+    /* 화면 배경을 검정색으로 설정 */
+    body {
+      background-color: black;
+      color: white; /* 텍스트 색상을 흰색으로 설정 */
+    }
+
+    .mainImage {
+      width: 1200px;
+      height: 600px;
+      display: block;
+      margin: 0 auto;
+      margin-top: 20px; /* 원하는 여백 크기 */
+    }
+
+    /* 캐러셀 컨트롤 버튼 배경색과 테두리 제거 */
+    .carousel-control-prev,
+    .carousel-control-next {
+      background-color: transparent; /* 배경색 투명으로 설정 */
+      border: none; /* 테두리 없애기 */
+    }
+
+    /* 캐러셀 컨트롤 버튼 아이콘 스타일 수정 */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: transparent; /* 배경색 투명으로 설정 */
+      border: none; /* 테두리 없애기 */
+    }
+
+    /* 캐러셀 컨트롤 버튼 호버 시 아이콘 스타일 수정 */
+    .carousel-control-prev:hover .carousel-control-prev-icon,
+    .carousel-control-next:hover .carousel-control-next-icon {
+      background-color: transparent; /* 배경색 투명으로 설정 */
+      border: none; /* 테두리 없애기 */
+    }
+  </style>
+</head>
+<body>
+
+<!--네비게이션-->
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid relative">
+    <a class="navbar-brand" href="#"><img th:src="@{/css/index/img/logo-Netflix.png}"
+                                          alt="Responsive image LOGO"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">시리즈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">영화</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">내가 찜한 콘텐츠</a>
+        </li>
+        <li th:if="${loginMember != null}" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            안녕하세요, <span th:text="${loginMember.name}"></span> 님!
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" th:href="@{/mypage}" href="#">마이페이지</a></li>
+            <li>
+              <form class="dropdown-item" action="/logout" method="post">
+                <button class="logout-button" type="submit">로그아웃</button>
+              </form>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Something else Bam 🌰</a></li>
+          </ul>
+        </li>
+        <li th:unless="${loginMember != null}" class="nav-item">
+          <a class="nav-link" th:href="@{/login}">로그인</a>
+        </li>
+      </ul>
+
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!--//네비게이션-->
+
+<main class="container-fluid">
+  <section>
+    <!--캐러셀-->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img th:src="@{/css/index/img/theglory.jpeg}" class="d-block w-100" alt="car1"
+               width="1200" height="600">
+        </div>
+        <div class="carousel-item">
+          <img th:src="@{/css/index/img/maskgirl.jpeg}" class="d-block w-100" alt="car2"
+               width="1200" height="600">
+        </div>
+        <div class="carousel-item">
+          <img th:src="@{/css/index/img/cellove.jpeg}" class="d-block w-100" alt="car3" width="1200"
+               height="600">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button"
+              data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button"
+              data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!--//캐러셀-->
+  </section>
+
+  <section>
+
+  </section>
+</main>
+
+<!---footer---------->
+<footer class="footer text-center mt-5 text-muted">
+  <small>Copyright 2023. 🌰flix (Bamflix) All rights reserved.</small>
+</footer>
+<!---// footer---------->
+
+</body>
+</html>
