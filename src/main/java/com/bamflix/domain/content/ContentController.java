@@ -29,9 +29,12 @@ public class ContentController {
     }
 
     @GetMapping("/contentDetail")
-    public String contentDetail(Model model, String title) {
+    public String contentDetail(Model model, String title, HttpSession session) {
         ContentResponse content = contentService.getContent(title);
         model.addAttribute("content", content);
+
+        MemberResponse loginMember = (MemberResponse) session.getAttribute("loginMember");
+        model.addAttribute("loginMember", loginMember);
 
         return "content/contentDetail";
     }
