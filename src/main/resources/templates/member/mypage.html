@@ -5,10 +5,132 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>마이페이지</title>
+  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .navbar {
+      background-color: transparent;
+    }
+
+    .navbar-brand img {
+      max-width: 100px;
+    }
+
+    .navbar-nav {
+      margin-right: auto;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+      color: white;
+      margin-left: 15px;
+    }
+
+    .navbar-light .navbar-nav .nav-link.active {
+      font-weight: bold;
+    }
+
+    .navbar-light .navbar-toggler-icon {
+      background-color: white;
+    }
+
+    body {
+      background-color: black;
+      color: white;
+    }
+
+    .main {
+      padding: 40px 0;
+    }
+
+    .container {
+      background-color: #222;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .title {
+      color: white;
+    }
+
+    .btn {
+      margin-top: 10px;
+    }
+
+    .btn-primary {
+      background-color: rgba(28, 255, 0, 0.82);
+      border-color: #00ff00;
+    }
+
+    .btn-primary:hover {
+      background-color: #9d9a9a;
+      border-color: #9d9a9a;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+      background-color: #ffffff;
+      border-color: #ffffff;
+    }
+  </style>
 </head>
 <body>
-<!-- header -->
-<!-- // header -->
+<!--네비게이션-->
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid relative">
+    <a class="navbar-brand" th:href="@{/main}"><img th:src="@{/css/index/img/logo-Netflix.png}"
+                                          alt="Responsive image LOGO"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">시리즈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">영화</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">내가 찜한 콘텐츠</a>
+        </li>
+        <li th:if="${memberResponse != null}" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            안녕하세요, <span th:text="${memberResponse.name}"></span> 님!
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" th:href="@{/mypage}">마이페이지</a></li>
+            <li><a class="dropdown-item" th:href="@{/subscription}">구독권 구매</a></li>
+            <li>
+              <form class="dropdown-item" action="/logout" method="post">
+                <button class="logout-button" type="submit">로그아웃</button>
+              </form>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Something else Bam 🌰</a></li>
+          </ul>
+        </li>
+        <li th:unless="${memberResponse != null}" class="nav-item">
+          <a class="nav-link" th:href="@{/login}">로그인</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--//네비게이션-->
 
 <div class="main">
   <div class="container">
@@ -19,12 +141,48 @@
       <p>이메일: <span th:text="${memberResponse.email}"></span></p>
       <p>휴대폰번호: <span th:text="${memberResponse.phone}"></span></p>
     </div>
+
+    <!-- 회원 정보 수정 버튼 -->
+    <a class="btn btn-primary" th:if="${memberResponse != null}"
+       th:href="@{/editProfile/${loginMember.id}}">
+      회원 정보 수정
+    </a>
+
+    <!-- 탈퇴 버튼 -->
+    <a class="btn btn-danger" th:if="${memberResponse != null}"
+       th:onclick="'javascript: confirmAndDelete(' + ${memberResponse.id} + ')'" href="#">
+      회원 탈퇴
+    </a>
+
+
   </div>
 </div>
 
-<!-- footer -->
-<p class="footer">Copyright 2023. Bamflix All rights reserved.</p>
-<!-- //footer -->
+<!---footer---------->
+<footer class="footer text-center mt-5 text-muted">
+  <small>Copyright 2023. 🌰flix (Bamflix) All rights reserved.</small>
+</footer>
+<!---// footer---------->
+
+<script>
+  function confirmAndDelete(memberId) {
+    if (confirm('정말로 탈퇴하시겠습니까?')) {
+      fetch('/deleteAccount/' + memberId, {
+        method: 'DELETE'
+      }).then(response => {
+        if (response.ok) {
+          alert('회원 탈퇴가 성공적으로 처리되었습니다.');
+          window.location.href = '/login';
+        } else {
+          alert('회원 탈퇴 중 오류가 발생했습니다.');
+        }
+      }).catch(error => {
+        console.error('탈퇴 중 오류 발생:', error);
+        alert('회원 탈퇴 중 오류가 발생했습니다.');
+      });
+    }
+  }
+</script>
 
 </body>
 </html>

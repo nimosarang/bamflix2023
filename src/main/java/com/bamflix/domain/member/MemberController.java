@@ -46,14 +46,14 @@ public class MemberController {
     }
 
     // 회원 정보 수정
-    @PatchMapping("/members/{id}")
+    @PatchMapping("/editProfile/{id}")
     @ResponseBody
     public Long updateMember(@PathVariable final Long id, @RequestBody final MemberRequest params) {
         return memberService.updateMember(params);
     }
 
     // 회원 정보 삭제 (회원 탈퇴)
-    @DeleteMapping("/members/{id}")
+    @DeleteMapping("/deleteAccount/{id}")
     @ResponseBody
     public Long deleteMemberById(@PathVariable final Long id) {
         return memberService.deleteMemberById(id);
