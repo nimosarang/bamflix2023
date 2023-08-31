@@ -18,6 +18,8 @@ public class ContentResponse {
     private String createCountry;
     private String createYear;
     private Boolean isSubscribeYn;
+    private Category category;
+    private Genre genre;
     private String director;
     private Integer price;
     private Boolean deleteYn;
