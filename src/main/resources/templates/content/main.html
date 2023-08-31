@@ -156,9 +156,6 @@
       </ul>
 
       <form class="d-flex">
-        <div  th:unless="${loginMember == null}">
-          <a type="button" class="btn btn-danger" th:href="@{/subscription}">구독권 구매하기</a>
-        </div>
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
