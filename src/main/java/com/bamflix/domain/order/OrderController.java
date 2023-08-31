@@ -7,9 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -96,12 +94,20 @@ public class OrderController {
         
          */
 
-        return "order/payment";
+        return "order/order_detail";
     }
 
-    @GetMapping("/order/payment/complete")
-    public String payment() {
-        return "order/payment";
+    @GetMapping("/order/order_detail")
+    public String payment(Model model, HttpSession session, Long id) {
+
+        MemberResponse loginMember = (MemberResponse) session.getAttribute("loginMember");
+
+            id = 2L;
+            List<SubscriptionResponse> selectList = orderService.selectSubscription(id);
+            model.addAttribute("selectList", selectList);
+            model.addAttribute("loginMember", loginMember);
+
+        return "order/order_detail";
     }
 
 }

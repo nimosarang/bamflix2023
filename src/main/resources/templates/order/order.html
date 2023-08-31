@@ -1,8 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>주문/결제 페이지</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>홈 - 밤플릭스</title>
+    <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .navbar {
+            background-color: transparent;
+        }
+
+        .navbar-brand img {
+            max-width: 100px;
+        }
+
+        .navbar-nav {
+            margin-right: auto;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: white;
+            margin-left: 15px;
+        }
+
+        .navbar-light .navbar-nav .nav-link.active {
+            font-weight: bold;
+        }
+
+        .navbar-light .navbar-toggler-icon {
+            background-color: white; /* 햄버거 아이콘의 배경 색상을 흰색으로 설정 */
+        }
+
+        /* 화면 배경을 검정색으로 설정 */
+        body {
+            background-color: black;
+            color: white; /* 텍스트 색상을 흰색으로 설정 */
+        }
+    </style>
 </head>
 <script src="https://cdn.iamport.kr/v1/iamport.js" />
 
@@ -136,15 +174,70 @@
 
 <!--    function paymentCash(){-->
 <!--        alert("현금결제입니다.");-->
-<!--        location.href="/payment.html";-->
+<!--        location.href="/order_detail.html";-->
 <!--    }-->
 <!--</script>-->
 
 <body>
-<h1>주문/결제 페이지입니다</h1>
-<h3>**로그인 되어 있다 가정된 상태임</h3>
-<br>
-<br>
+
+
+<!--네비게이션-->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid relative">
+        <a class="navbar-brand" href="#"><img th:src="@{/css/index/img/logo-Netflix.png}"
+                                              alt="Responsive image LOGO"/></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">시리즈</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">영화</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">내가 찜한 콘텐츠</a>
+                </li>
+                <li th:if="${loginMember != null}" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        안녕하세요, <span th:text="${loginMember.name}"></span> 님!
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/mypage}" href="#">마이페이지</a></li>
+                        <li>
+                            <form class="dropdown-item" action="/logout" method="post">
+                                <button class="logout-button" type="submit">로그아웃</button>
+                            </form>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else Bam 🌰</a></li>
+                    </ul>
+                </li>
+                <li th:unless="${loginMember != null}" class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">로그인</a>
+                </li>
+            </ul>
+
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<!--//네비게이션-->
+
+
 <form action="/order/payment/complete" method="post">
     <table border="1">
         <tr>
@@ -331,14 +424,27 @@
             headers: { "Content-Type": "application/json" },
             data: data,
         })
+        .done(function() {
+            location.href = '/order/order_detail';
+        })
+        .fail(function() {
+            alert("결제에 실패하였습니다.");
+            location.href='/subscription';
+        })
     }
 
 
     function paymentCash(){
         alert("현금결제입니다.");
-        location.href="/order/payment/complete";
+        location.href="/order/order_detail";
     }
 </script>
+
+<!---footer---------->
+<footer class="footer text-center mt-5 text-muted">
+    <small>Copyright 2023. 🌰flix (Bamflix) All rights reserved.</small>
+</footer>
+<!---// footer---------->
 
 </body>
 </html>
