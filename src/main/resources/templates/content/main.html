@@ -210,7 +210,9 @@
   <section>
     <div class="card-group">
       <div class="card" th:each="content : ${contents}">
-        <img th:src="@{${content.getImgPath()}}" class="card-img-top" alt=card1>
+        <a th:href="@{/contentDetail(title=${content.title})}">
+          <img th:src="@{${content.getImgPath()}}" class="card-img-top" alt=card1>
+        </a>
         <!--        <div class="card-footer">-->
         <!--          <small class="text-muted" th:text="${content.title}">contents title</small>-->
         <!--        </div>-->

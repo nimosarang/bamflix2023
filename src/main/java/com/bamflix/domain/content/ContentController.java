@@ -28,6 +28,14 @@ public class ContentController {
         return "content/main";
     }
 
+    @GetMapping("/contentDetail")
+    public String contentDetail(Model model, String title) {
+        ContentResponse content = contentService.getContent(title);
+        model.addAttribute("content", content);
+
+        return "content/contentDetail";
+    }
+
     @GetMapping("/write")
     public String write() {
         return "content/write";
@@ -38,6 +46,14 @@ public class ContentController {
 
         contentService.saveContent(content, imgFile);
 
+        return "redirect:detail";
+    }
+
+    @GetMapping("/detail")
+    public String detail(Model model) {
+        List<ContentResponse> contents = contentService.getList();
+        model.addAttribute("contents", contents);
+
         return "content/detail";
     }
 
@@ -47,8 +63,8 @@ public class ContentController {
     }
 
     @PostMapping("/update")
-    public String update(ContentRequest params) {
-        contentService.update(params);
+    public String update(ContentRequest content, MultipartFile imgFile) throws Exception {
+        contentService.updateContent(content, imgFile);
 
         return "redirect:detail";
     }

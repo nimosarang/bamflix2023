@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Update</title>
 </head>
 <body  align="center">
-<form method="post" action="/update">
+<form th:action="@{/update}" method="post" enctype="multipart/form-data">
   <table align="center">
     <tr>
       <td>수정할 컨텐츠의 title : </td>
@@ -16,8 +16,8 @@
       <td><input type="text" id="summary" name="summary"></td>
     </tr>
     <tr>
-      <td>originalUrl : </td>
-      <td><input type="text" id="originalUrl" name="originalUrl"></td>
+      <td>Content Image Upload : </td>
+      <td><input type="file" id="imgFile" name="imgFile"></td>
     </tr>
     <tr>
       <td>createCountry : </td>
@@ -26,6 +26,14 @@
     <tr>
       <td>createYear : </td>
       <td><input type="text" id="createYear" name="createYear"></td>
+    </tr>
+    <tr>
+      <td>category : </td>
+      <td><input type="text" id="category" name="category"></td>
+    </tr>
+    <tr>
+      <td>genre : </td>
+      <td><input type="text" id="genre" name="genre"></td>
     </tr>
     <tr>
       <td>director : </td>
@@ -39,10 +47,7 @@
       <td>isSubscribeYn : </td>
       <td><input type="text" id="isSubscribeYn" name="isSubscribeYn"></td>
     </tr>
-    <tr>
-      <td>deleteYn : </td>
-      <td><input type="text" id="deleteYn" name="deleteYn"></td>
-    </tr>
+
   </table>
   <br><br>
 

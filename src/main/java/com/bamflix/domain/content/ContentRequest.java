@@ -18,6 +18,8 @@ public class ContentRequest {
     private String createYear;
     private Boolean isSubscribeYn;
     private String director;
+    private Category category;
+    private Genre genre;
     private Integer price;
 
 }

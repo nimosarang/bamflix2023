@@ -14,4 +14,6 @@ public interface ContentMapper {
     void update(ContentRequest params);
 
     void delete(ContentRequest params);
+
+    ContentResponse getContent(String title);
 }

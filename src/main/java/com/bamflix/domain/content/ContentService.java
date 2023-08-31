@@ -18,6 +18,11 @@ public class ContentService {
         return contentMapper.getList();
     }
 
+    ContentResponse getContent(String title) {
+
+        return contentMapper.getContent(title);
+    }
+
     public void saveContent(ContentRequest content, MultipartFile imgFile) throws Exception {
 
         String oriImgName = imgFile.getOriginalFilename();
@@ -39,12 +44,32 @@ public class ContentService {
         contentMapper.save(content);
     }
 
-    public void update(ContentRequest params) {
-        contentMapper.update(params);
+    public void updateContent(ContentRequest content, MultipartFile imgFile) throws Exception {
+
+        String oriImgName = imgFile.getOriginalFilename();
+        String imgName = "";
+
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
+
+        UUID uuid = UUID.randomUUID();
+
+        imgName = uuid + "_" + oriImgName;
+
+        File saveFile = new File(projectPath, imgName);
+
+        imgFile.transferTo(saveFile);
+
+        content.setImgName(imgName);
+        content.setImgPath("/files/" + imgName);
+
+        contentMapper.update(content);
     }
+
 
     public void delete(ContentRequest params) {
         contentMapper.delete(params);
     }
+
+
 }
 
