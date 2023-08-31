@@ -3,8 +3,7 @@ package com.bamflix.domain.content;
 import com.bamflix.domain.member.MemberResponse;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -19,8 +18,6 @@ public class ContentController {
 
     private final ContentService contentService;
 
-    private Logger logger = LoggerFactory.getLogger(ContentController.class);
-
     @GetMapping("/main")
     public String getList(Model model, HttpSession session) {
         List<ContentResponse> contents = contentService.getList();
@@ -32,7 +29,7 @@ public class ContentController {
     }
 
     @GetMapping("/write")
-    public String write(Model model) {
+    public String write() {
         return "content/write";
     }
 
