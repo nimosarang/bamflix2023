@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bamflix.domain.purchase.PurchaseMapper">
+
+  <insert id="addPurchase" parameterType="com.bamflix.domain.purchase.PurchaseRequest" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO purchase (id, member_id, content_id, purchase_at)
+    VALUES (#{id},
+            #{memberId},
+            #{contentId},
+            NOW())
+  </insert>
+
+</mapper>
