@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>내가 찜한 컨텐츠</title>
-  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
-  <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <style>
+    @media (max-width: 768px) {
+      .navbar-nav {
+        margin-top: 10px; /* 작은 화면에서 위에 여백 추가 */
+      }
+
+      .main {
+        padding: 20px 0; /* 작은 화면에서 위아래 여백 조정 */
+      }
+
+      .container {
+        padding: 10px; /* 작은 화면에서 내용 여백 조정 */
+      }
+
+      .table {
+        font-size: 14px; /* 작은 화면에서 테이블 폰트 크기 조정 */
+      }
+
+      /* 컨텐츠를 세로로 배치하는 스타일 */
+      .cart-table {
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .table thead th {
+        text-align: center;
+      }
+
+      .table tbody td {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .table td:first-child {
+        text-align: left;
+      }
+    }
+
     .navbar {
       background-color: transparent;
     }
@@ -75,10 +112,9 @@
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid relative">
     <a class="navbar-brand" th:href="@{/main}"><img th:src="@{/css/index/img/logo-Netflix.png}"
-                                                    alt="Responsive image LOGO"/></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+                                                    alt="Responsive image LOGO" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -121,7 +157,6 @@
 <!--//네비게이션-->
 
 <form>
-
   <div class="main">
     <div class="container">
       <h2 class="title">내가 찜한 컨텐츠</h2>
@@ -146,13 +181,19 @@
             <td class="align-middle text-center">
               <img th:src="@{${content.getImgPath()}}" alt="cartImage1">
             </td>
-            <td class="align-middle text-center"><span class="text-white" th:text="${content.title}"></span></td>
-            <td class="align-middle text-center"><span class="text-white" th:text="${content.price}"></span></td>
-            <td class="align-middle text-center"><span class="text-white" th:text="${content.createdAt}"></span></td>
+            <td class="align-middle text-center"><span class="text-white"
+                                                       th:text="${content.title}"></span></td>
+            <td class="align-middle text-center"><span class="text-white"
+                                                       th:text="${content.price}"></span></td>
+            <td class="align-middle text-center"><span class="text-white"
+                                                       th:text="${content.createdAt}"></span></td>
             <td class="align-middle text-center">
               <button type="button" class="btn btn-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a 2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                     fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path
+                      d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a 2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z">
+                  </path>
                 </svg>
               </button>
             </td>
@@ -162,13 +203,12 @@
       </div>
     </div>
   </div>
-
 </form>
 <!---footer---------->
 <footer class="footer text-center mt-5 text-muted">
   <small>Copyright 2023. 🌰flix (Bamflix) All rights reserved.</small>
 </footer>
 <!---// footer---------->
-
 </body>
+
 </html>
