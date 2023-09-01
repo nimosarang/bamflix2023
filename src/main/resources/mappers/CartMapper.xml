@@ -5,11 +5,12 @@
 <mapper namespace="com.bamflix.domain.cart.CartMapper">
 
   <insert id="insertContent" parameterType="com.bamflix.domain.cart.CartRequest" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO cart (id, member_id, content_id, created_date)
+    INSERT INTO cart (id, member_id, content_id, delete_yn, created_at)
     VALUES (
             #{id},
             #{memberId},
             #{contentId},
+            0,
             NOW()
             )
   </insert>

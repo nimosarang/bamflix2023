@@ -17,6 +17,7 @@ public class CartResponse {
     private Long id;                       // Cart 번호 (PK)
     private Long memberId;
     private Long contentId;
-    private LocalDateTime createdDate;     // 생성일시
+    private boolean deleteYn;
+    private LocalDateTime createdAt;     // 생성일시
 
 }
