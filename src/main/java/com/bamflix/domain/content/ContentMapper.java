@@ -16,4 +16,20 @@ public interface ContentMapper {
     void delete(ContentRequest params);
 
     ContentResponse getContent(String title);
+
+    List<ContentResponse> getMovieList();
+
+    List<ContentResponse> getDramaList();
+
+    List<ContentResponse> getEntertainmentList();
+
+    List<ContentResponse> getAnimationList();
+
+    List<ContentResponse> getActionList();
+
+    List<ContentResponse> getComicList();
+
+    List<ContentResponse> getRomanceList();
+
+    List<ContentResponse> getSfList();
 }

@@ -122,12 +122,33 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">시리즈</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navcateDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
+          <ul class="dropdown-menu" aria-labelledby="navcateDropdown">
+            <li><a class="dropdown-item" th:href="@{/movie}">영화</a></li>
+            <li><a class="dropdown-item" th:href="@{/drama}">드라마</a></li>
+            <li><a class="dropdown-item" th:href="@{/entertainment}">예능</a></li>
+            <li><a class="dropdown-item" th:href="@{/animation}">애니</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">영화</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navgenDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">장르</a>
+          <ul class="dropdown-menu" aria-labelledby="navgenDropdown">
+            <li><a class="dropdown-item" th:href="@{/action}">액션</a></li>
+            <li><a class="dropdown-item" th:href="@{/romance}">로맨스</a></li>
+            <li><a class="dropdown-item" th:href="@{/comic}">코미디</a></li>
+            <li><a class="dropdown-item" th:href="@{/sf}">SF</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+          </ul>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" th:href="@{/getFromCart}">내가 찜한 콘텐츠</a>
         </li>

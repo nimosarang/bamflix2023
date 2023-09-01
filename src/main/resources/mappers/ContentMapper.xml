@@ -13,6 +13,38 @@
         from content where title=#{title} and delete_yn = 0;
     </select>
 
+    <select id="getMovieList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        from content where category='영화' and delete_yn = 0;
+    </select>
+    <select id="getDramaList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        from content where category='드라마' and delete_yn = 0;
+    </select>
+    <select id="getEntertainmentList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        from content where category='예능' and delete_yn = 0;
+    </select>
+    <select id="getAnimationList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        from content where category='애니' and delete_yn = 0;
+    </select>
+    <select id="getActionList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        from content where genre='액션' and delete_yn = 0;
+    </select>
+    <select id="getComicList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        from content where genre='코미디' and delete_yn = 0;
+    </select>
+    <select id="getRomanceList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        from content where genre='로맨스' and delete_yn = 0;
+    </select>
+    <select id="getSfList" resultType="com.bamflix.domain.content.ContentResponse">
+        select id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        from content where genre='SF' and delete_yn = 0;
+    </select>
 
     <insert id="save" keyProperty="id" useGeneratedKeys="true" parameterType="com.bamflix.domain.content.ContentRequest">
         insert into content (id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn)

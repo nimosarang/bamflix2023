@@ -2,11 +2,46 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>write</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid white;
+    }
+
+    button {
+      padding: 5px 15px;
+      background-color: red;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+  </style>
+
 </head>
 <body align="center">
 <form th:action="@{/save}" method="post" enctype="multipart/form-data">
+  <h1>Content 추가</h1>
   <table align="center">
+    <tr><td></td><td></td></tr>
     <tr>
       <td>title :</td>
       <td><input type="text" id="title" name="title"></td>
@@ -29,11 +64,29 @@
     </tr>
     <tr>
       <td>category : </td>
-      <td><input type="text" id="category" name="category"></td>
+      <td>
+        <label class="form-check-label" for="category1">영화</label>
+        <input type="radio" name="category" id="category1" value="영화">
+        <label class="form-check-label" for="category2">드라마</label>
+        <input type="radio" name="category" id="category2" value="드라마">
+        <label class="form-check-label" for="category3">예능</label>
+        <input type="radio" name="category" id="category3" value="예능">
+        <label class="form-check-label" for="category4">애니</label>
+        <input type="radio" name="category" id="category4" value="애니">
+      </td>
     </tr>
     <tr>
       <td>genre : </td>
-      <td><input type="text" id="genre" name="genre"></td>
+      <td>
+        <label class="form-check-label" for="genre1">액션</label>
+        <input type="radio" name="genre" id="genre1" value="액션">
+        <label class="form-check-label" for="genre2">로맨스</label>
+        <input type="radio" name="genre" id="genre2" value="로맨스">
+        <label class="form-check-label" for="genre3">코미디</label>
+        <input type="radio" name="genre" id="genre3" value="코미디">
+        <label class="form-check-label" for="genre4">SF</label>
+        <input type="radio" name="genre" id="genre4" value="SF">
+      </td>
     </tr>
     <tr>
       <td>director :</td>
@@ -49,9 +102,7 @@
     </tr>
   </table>
   <br><br>
-
   <button type="submit">ok</button>
-
 </form>
 </body>
 
