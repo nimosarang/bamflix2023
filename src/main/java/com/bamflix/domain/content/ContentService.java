@@ -5,10 +5,11 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ContentService {
 
@@ -21,6 +22,31 @@ public class ContentService {
     ContentResponse getContent(String title) {
 
         return contentMapper.getContent(title);
+    }
+
+    public List<ContentResponse> getMovieList() {
+        return contentMapper.getMovieList();
+    }
+    public List<ContentResponse> getDramaList() {
+        return contentMapper.getDramaList();
+    }
+    public List<ContentResponse> getEntertainmentList() {
+        return contentMapper.getEntertainmentList();
+    }
+    public List<ContentResponse> getAnimationList() {
+        return contentMapper.getAnimationList();
+    }
+    public List<ContentResponse> getActionList() {
+        return contentMapper.getActionList();
+    }
+    public List<ContentResponse> getComicList() {
+        return contentMapper.getComicList();
+    }
+    public List<ContentResponse> getRomanceList() {
+        return contentMapper.getRomanceList();
+    }
+    public List<ContentResponse> getSfList() {
+        return contentMapper.getSfList();
     }
 
     public void saveContent(ContentRequest content, MultipartFile imgFile) throws Exception {
@@ -69,7 +95,6 @@ public class ContentService {
     public void delete(ContentRequest params) {
         contentMapper.delete(params);
     }
-
 
 }
 
