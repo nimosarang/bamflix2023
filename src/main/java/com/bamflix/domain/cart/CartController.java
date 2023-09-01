@@ -44,4 +44,10 @@ public class CartController {
         return "cart/cartList";
     }
 
+    @PostMapping("/deleteCartContent")
+    public String deleteCartContent(@RequestParam Long contentId, @RequestParam Long memberId){
+        cartService.deleteContentById(contentId,memberId);
+        return "redirect:/getFromCart";
+    }
+
 }

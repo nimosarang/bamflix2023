@@ -19,8 +19,15 @@
     SELECT c.id, c.title, c.img_path, c.price, c.delete_yn, f.created_at
     FROM content c
            INNER JOIN cart f ON c.id = f.content_id
-    WHERE f.member_id = #{memberId}
+    WHERE f.member_id = #{memberId} and f.delete_yn = 0
     ORDER BY c.id DESC
   </select>
+
+  <delete id="deleteContentById" parameterType="long">
+    UPDATE cart
+    SET delete_yn = 1
+    WHERE content_id = #{contentId}
+      and member_id = #{memberId}
+  </delete>
 
 </mapper>

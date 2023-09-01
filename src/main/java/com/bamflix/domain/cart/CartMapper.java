@@ -20,4 +20,10 @@ public interface CartMapper {
      */
     List<CartContentResponse> getContentsByMemberId(Long memberId);
 
+    /**
+     * 찜한 컨텐츠 삭제
+     * @param contentId - 컨텐츠 아이디
+     * @param memberId  - 멤버 아이디
+     */
+    void deleteContentById(Long contentId, Long memberId);
 }

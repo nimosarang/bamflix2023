@@ -21,4 +21,8 @@ public class CartService {
         return cartMapper.getContentsByMemberId(memberId);
     }
 
+    public void deleteContentById(Long contentId, Long memberId) {
+        cartMapper.deleteContentById(contentId, memberId);
+    }
+
 }
