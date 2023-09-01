@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내가 찜한 컨텐츠</title>
+  <link rel="stylesheet" th:href="@{/css/index/css/bootstrap.min.css}"/>
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .navbar {
+      background-color: transparent;
+    }
+
+    .navbar-brand img {
+      max-width: 100px;
+    }
+
+    .navbar-nav {
+      margin-right: auto;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+      color: white;
+      margin-left: 15px;
+    }
+
+    .navbar-light .navbar-nav .nav-link.active {
+      font-weight: bold;
+    }
+
+    .navbar-light .navbar-toggler-icon {
+      background-color: white;
+    }
+
+    body {
+      background-color: black;
+      color: white;
+    }
+
+    .main {
+      padding: 40px 0;
+    }
+
+    .container {
+      background-color: #222;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .title {
+      color: white;
+    }
+
+    .btn {
+      margin-top: 10px;
+    }
+
+    .checkbox-col {
+      text-align: center;
+    }
+
+    .checkbox-input {
+      display: block;
+      margin: 0 auto;
+    }
+
+  </style>
+</head>
+
+<body>
+<!--네비게이션-->
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid relative">
+    <a class="navbar-brand" th:href="@{/main}"><img th:src="@{/css/index/img/logo-Netflix.png}"
+                                                    alt="Responsive image LOGO"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">시리즈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">영화</a>
+        </li>
+        <li th:if="${loginMember != null}" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            안녕하세요, <span th:text="${loginMember.name}"></span> 님!
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" th:href="@{/mypage}">마이페이지</a></li>
+            <li><a class="dropdown-item" th:href="@{/subscription}">구독권 구매</a></li>
+            <li>
+              <form class="dropdown-item" action="/logout" method="post">
+                <button class="logout-button" type="submit">로그아웃</button>
+              </form>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Something else Bam 🌰</a></li>
+          </ul>
+        </li>
+        <li th:unless="${loginMember != null}" class="nav-item">
+          <a class="nav-link" th:href="@{/login}">로그인</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--//네비게이션-->
+
+<form>
+
+  <div class="main">
+    <div class="container">
+      <h2 class="title">내가 찜한 컨텐츠</h2>
+
+      <div class="cart-table">
+        <table class="table">
+          <thead>
+          <tr style="text-align: center; color: white">
+            <th scope="col">선택</th>
+            <th scope="col">이미지</th>
+            <th scope="col">제목</th>
+            <th scope="col">가격</th>
+            <th scope="col">찜한 날</th>
+            <th scope="col">삭제</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="content : ${contents}">
+            <td class="align-middle text-center">
+              <input class="checkbox-input" type="checkbox">
+            </td>
+            <td class="align-middle text-center">
+              <img th:src="@{${content.getImgPath()}}" alt="cartImage1">
+            </td>
+            <td class="align-middle text-center"><span class="text-white" th:text="${content.title}"></span></td>
+            <td class="align-middle text-center"><span class="text-white" th:text="${content.price}"></span></td>
+            <td class="align-middle text-center"><span class="text-white" th:text="${content.createdAt}"></span></td>
+            <td class="align-middle text-center">
+              <button type="button" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a 2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</form>
+<!---footer---------->
+<footer class="footer text-center mt-5 text-muted">
+  <small>Copyright 2023. 🌰flix (Bamflix) All rights reserved.</small>
+</footer>
+<!---// footer---------->
+
+</body>
+</html>

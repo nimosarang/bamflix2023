@@ -1,5 +1,7 @@
 package com.bamflix.domain.cart;
 
+import com.bamflix.domain.content.CartContentResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,4 +16,9 @@ public class CartService {
     public void addContent(CartRequest cartRequest) {
         cartMapper.insertContent(cartRequest);
     }
+
+    public List<CartContentResponse> getContentsByMemberId(Long memberId) {
+        return cartMapper.getContentsByMemberId(memberId);
+    }
+
 }

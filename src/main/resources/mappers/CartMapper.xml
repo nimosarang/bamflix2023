@@ -15,4 +15,12 @@
             )
   </insert>
 
+  <select id="getContentsByMemberId" resultType="com.bamflix.domain.content.CartContentResponse">
+    SELECT c.id, c.title, c.img_path, c.price, c.delete_yn, f.created_at
+    FROM content c
+           INNER JOIN cart f ON c.id = f.content_id
+    WHERE f.member_id = #{memberId}
+    ORDER BY c.id DESC
+  </select>
+
 </mapper>
