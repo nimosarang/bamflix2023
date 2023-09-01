@@ -102,7 +102,7 @@
           <a class="nav-link" href="#">영화</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">내가 찜한 콘텐츠</a>
+          <a class="nav-link" th:href="@{/getFromCart}">내가 찜한 콘텐츠</a>
         </li>
         <li th:if="${memberResponse != null}" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
