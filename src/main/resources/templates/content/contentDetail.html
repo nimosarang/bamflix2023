@@ -55,11 +55,18 @@
         }
 
         button {
-            padding: 10px 20px;
+            padding: 5px 15px;
             background-color: red;
             border: none;
             color: white;
             cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-start; /* 가로 정렬 */
+            margin-top: 20px;
         }
 
     </style>
@@ -106,19 +113,23 @@
                 <td><span th:text="${content.price}"></span></td>
             </tr>
         </table>
-        <div style="margin-top: 20px;">
-            <button type="button" onclick="location.href='main.html'" th:onclick="|location.href='@{/main}'|">Play
-            </button>
+        <div class="button-container">
+<!--            <button type="button" onclick="location.href='main.html'" th:onclick="|location.href='@{/main}'|">Play</button>-->
+            <button type="button" onclick="showAlert()">▶</button> &nbsp; &nbsp;
             <form th:action="@{/addToCart}" method="post">
                 <input type="hidden" name="contentId" th:value="${content.id}" />
                 <input type="hidden" name="memberId" th:value="${loginMember.id}" />
-                <button type="submit">찜하기</button>
+                <button type="submit">찜🌰</button>
             </form>
-            <button type="button" onclick="location.href='main.html'" th:onclick="|location.href='@{/main}'|">Main
-            </button>
+            &nbsp; &nbsp;
+            <button type="button" onclick="location.href='main.html'" th:onclick="|location.href='@{/main}'|">Main</button>
         </div>
     </div>
 </div>
 </body>
-
+<script>
+    function showAlert() {
+        alert("영상을 재생합니다🌰");
+    }
+</script>
 </html>
