@@ -4,29 +4,42 @@
 
 <mapper namespace="com.bamflix.domain.cart.CartMapper">
 
-  <insert id="insertContent" parameterType="com.bamflix.domain.cart.CartRequest" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertContent" parameterType="com.bamflix.domain.cart.CartRequest"
+    useGeneratedKeys="true" keyProperty="id">
     INSERT INTO cart (id, member_id, content_id, delete_yn, created_at)
-    VALUES (
-            #{id},
+    VALUES (#{id},
             #{memberId},
             #{contentId},
             0,
-            NOW()
-            )
+            NOW())
   </insert>
 
   <select id="getContentsByMemberId" resultType="com.bamflix.domain.content.CartContentResponse">
-    SELECT c.id, c.title, c.img_path, c.price, c.delete_yn, f.created_at
+    SELECT f.id, c.title, c.img_path, c.price, c.delete_yn, f.created_at
     FROM content c
            INNER JOIN cart f ON c.id = f.content_id
-    WHERE f.member_id = #{memberId} and f.delete_yn = 0
+    WHERE f.member_id = #{memberId}
+      and f.delete_yn = 0
     ORDER BY c.id DESC
+  </select>
+
+  <select id="getCartId" parameterType="long" resultType="long">
+    SELECT id
+    FROM cart
+    WHERE member_id = #{memberId}
+  </select>
+
+  <select id="getContentByCartId" parameterType="long"
+    resultType="com.bamflix.domain.content.CartContent">
+    SELECT id, member_id, content_id, created_at, delete_yn
+    FROM cart
+    WHERE id = #{cartId}
   </select>
 
   <delete id="deleteContentById" parameterType="long">
     UPDATE cart
     SET delete_yn = 1
-    WHERE content_id = #{contentId}
+    WHERE id = #{cartId}
       and member_id = #{memberId}
   </delete>
 

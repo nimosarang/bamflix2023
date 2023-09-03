@@ -21,8 +21,12 @@ public class CartService {
         return cartMapper.getContentsByMemberId(memberId);
     }
 
-    public void deleteContentById(Long contentId, Long memberId) {
-        cartMapper.deleteContentById(contentId, memberId);
+    public void deleteContentById(Long cartId, Long memberId) {
+        cartMapper.deleteContentById(cartId, memberId);
+    }
+
+    public Long getCartId(Long memberId) {
+      return cartMapper.getCartId(memberId);
     }
 
 }
