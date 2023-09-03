@@ -1,5 +1,6 @@
 package com.bamflix.domain.cart;
 
+import com.bamflix.domain.content.CartContent;
 import com.bamflix.domain.content.CartContentResponse;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +34,11 @@ public interface CartMapper {
      * @return - cart id
      */
     Long getCartId(Long memberId);
+
+    /**
+     * 카트 아이디로 컨텐츠 가져오기
+     * @param cartId - 카트아이디
+     * @return - 컨텐츠
+     */
+    CartContent getContentByCartId(Long cartId);
 }
