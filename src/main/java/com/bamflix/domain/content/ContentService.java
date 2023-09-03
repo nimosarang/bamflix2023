@@ -31,6 +31,10 @@ public class ContentService {
         return contentMapper.getGenreList(genre);
     }
 
+    public List<ContentResponse> getSearchList(String title) {
+        return contentMapper.getSearchList(title);
+    }
+
     public void saveContent(ContentRequest content, MultipartFile imgFile) throws Exception {
 
         String oriImgName = imgFile.getOriginalFilename();

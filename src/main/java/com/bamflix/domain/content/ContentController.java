@@ -78,6 +78,14 @@ public class ContentController {
         return "content/genreContent";
     }
 
+    @GetMapping ("/search")
+    public String search(Model model, String title) {
+        List<ContentResponse> searchList = contentService.getSearchList(title);
+        model.addAttribute("contents", searchList);
+
+        return "content/searchContent";
+    }
+
     @GetMapping("/update")
     public String update() {
         return "content/update";
