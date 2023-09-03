@@ -3,14 +3,47 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Main</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>detail</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 300px 20px 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid white;
+    }
+
+    button {
+      padding: 5px 15px;
+      background-color: red;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 20px;
+    }
+
+  </style>
 </head>
 <body align="center">
 <form>
+  <h1>Content List</h1>
   <table border="1" align="center">
     <tr th:each="content : ${contents}">
       <td><span th:text="${content.id}"></span></td>
-<!--      <td><img th:src="@{${content.getImgPath()}}"></td>-->
       <td><span th:text="${content.title}"></span></td>
       <td><span th:text="${content.summary}"></span></td>
       <td><span th:text="${content.imgPath}"></span></td>
