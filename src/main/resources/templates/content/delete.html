@@ -2,11 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Delete</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>delete</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid white;
+        }
+
+        button {
+            padding: 5px 15px;
+            background-color: red;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+    </style>
 </head>
 <body  align="center">
 <form method="post" action="/delete">
+    <h1>Content 삭제</h1>
     <table align="center">
+        <tr><td></td><td></td></tr>
         <tr>
             <td>title : </td>
             <td><input type="text" id="title" name="title"></td>
