@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -14,15 +16,16 @@ public class PurchaseService {
     private final PurchaseMapper purchaseMapper;
     private final CartMapper cartMapper;
 
-    public void addPurchase(Long cartId) {
-        CartContent content = cartMapper.getContentByCartId(cartId);
+    public void addPurchase(List<Long> cartIds) {
+        for (Long cartId : cartIds) {
+            CartContent content = cartMapper.getContentByCartId(cartId);
 
-        PurchaseRequest purchaseRequest = PurchaseRequest.builder()
-            .memberId(content.getMemberId())
-            .contentId(content.getContentId())
-            .build();
+            PurchaseRequest purchaseRequest = PurchaseRequest.builder()
+                .memberId(content.getMemberId())
+                .contentId(content.getContentId())
+                .build();
 
-        purchaseMapper.addPurchase(purchaseRequest);
+            purchaseMapper.addPurchase(purchaseRequest);
+        }
     }
-
 }
