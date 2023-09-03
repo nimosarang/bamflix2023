@@ -114,7 +114,6 @@
             </tr>
         </table>
         <div class="button-container">
-<!--            <button type="button" onclick="location.href='main.html'" th:onclick="|location.href='@{/main}'|">Play</button>-->
             <button type="button" onclick="showAlert()">▶</button> &nbsp; &nbsp;
             <form th:action="@{/addToCart}" method="post">
                 <input type="hidden" name="contentId" th:value="${content.id}" />
