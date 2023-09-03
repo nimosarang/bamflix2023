@@ -153,6 +153,7 @@
 <main class="container-fluid">
 
     <section>
+        <h1  th:text="${genreTitle}"></h1>
         <div class="card-group contentCard">
             <div class="card" th:each="content : ${contents}">
                 <a th:href="@{/contentDetail(title=${content.title})}">

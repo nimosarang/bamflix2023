@@ -70,6 +70,8 @@ public class ContentController {
 
     @GetMapping("/genre")
     public String genre(Model model, String genre) {
+        String genreTitle = genre;
+        model.addAttribute("genreTitle", genreTitle);
         List<ContentResponse> genres = contentService.getGenreList(genre);
         model.addAttribute("contents", genres);
 
