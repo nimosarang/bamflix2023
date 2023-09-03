@@ -16,17 +16,23 @@
   </insert>
 
   <select id="getContentsByMemberId" resultType="com.bamflix.domain.content.CartContentResponse">
-    SELECT c.id, c.title, c.img_path, c.price, c.delete_yn, f.created_at
+    SELECT f.id, c.title, c.img_path, c.price, c.delete_yn, f.created_at
     FROM content c
            INNER JOIN cart f ON c.id = f.content_id
     WHERE f.member_id = #{memberId} and f.delete_yn = 0
     ORDER BY c.id DESC
   </select>
 
+  <select id="getCartId" parameterType="long" resultType="long">
+    SELECT id
+    FROM cart
+    WHERE member_id = #{memberId}
+  </select>
+
   <delete id="deleteContentById" parameterType="long">
     UPDATE cart
     SET delete_yn = 1
-    WHERE content_id = #{contentId}
+    WHERE id = #{cartId}
       and member_id = #{memberId}
   </delete>
 

@@ -32,15 +32,17 @@ public class CartController {
         }
 
         Long memberId = loginMember.getId();
-        List<CartContentResponse> contents = cartService.getContentsByMemberId(memberId);
-        model.addAttribute("contents", contents);
+
+        List<CartContentResponse> CartContentResponse = cartService.getContentsByMemberId(memberId);
+
+        model.addAttribute("CartContentResponse", CartContentResponse);
         model.addAttribute("loginMember", loginMember);
         return "cart/cartList";
     }
 
     @PostMapping("/deleteCartContent")
-    public String deleteCartContent(@RequestParam Long contentId, @RequestParam Long memberId){
-        cartService.deleteContentById(contentId,memberId);
+    public String deleteCartContent(@RequestParam Long cartId, @RequestParam Long memberId){
+        cartService.deleteContentById(cartId,memberId);
         return "redirect:/getFromCart";
     }
 

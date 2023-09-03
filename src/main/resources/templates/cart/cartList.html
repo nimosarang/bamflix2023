@@ -159,7 +159,8 @@
 </nav>
 <!--//네비게이션-->
 
-<form th:action="@{/purchaseContent}" method="post">
+<!-- 컨텐츠 삭제 폼 -->
+<form th:action="@{/deleteCartContent}" method="post">
   <div class="main">
     <div class="container">
       <h2 class="title">내가 찜한 컨텐츠</h2>
@@ -176,51 +177,67 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="content : ${contents}">
+          <tr th:each="CartContent : ${CartContentResponse}">
             <td class="align-middle text-center">
-              <input class="checkbox-input" type="checkbox" th:name="${content.id}">
-              <input type="hidden" th:name="${loginMember.id}">
+              <label for="cartId">
+                <input id="cartId" class="checkbox-input" type="checkbox" name="cartId"
+                       th:value="${CartContent.id}">
+              </label>
             </td>
             <td class="align-middle text-center">
-              <img th:src="@{${content.getImgPath()}}" alt="cartImage1">
+              <img th:src="@{${CartContent.getImgPath()}}" alt="cartImage1">
             </td>
             <td class="align-middle text-center"><span class="text-white"
-                                                       th:text="${content.title}"></span></td>
+                                                       th:text="${CartContent.title}"></span></td>
             <td class="align-middle text-center"><span class="text-white"
-                                                       th:text="${content.price}"></span></td>
+                                                       th:text="${CartContent.price}"></span></td>
             <td class="align-middle text-center"><span class="text-white"
-                                                       th:text="${content.createdAt}"></span></td>
+                                                       th:text="${CartContent.createdAt}"></span></td>
             <td class="align-middle text-center">
-              <form th:action="@{/deleteCartContent}" method="post">
-                <button type="submit" class="btn btn-secondary">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                       fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                    <path
-                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a 2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z">
-                    </path>
-                  </svg>
-                  <input type="hidden" name="contentId" th:value="${content.id}"/>
-                  <input type="hidden" name="memberId" th:value="${loginMember.id}"/>
-                </button>
-              </form>
+              <button type="submit" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                     fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path
+                      d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a 2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z">
+                  </path>
+                </svg>
+                <input type="hidden" name="cartId" th:value="${CartContent.id}">
+                <input type="hidden" name="memberId" th:value="${loginMember.id}">
+              </button>
             </td>
           </tr>
           </tbody>
         </table>
       </div>
-      <div class="cart-order d-flex justify-content-end">
-        <button type="submit" class="btn btn-outline-danger">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-               class="bi bi-bag-heart" viewBox="0 0 16 16">
-            <path fill-rule="evenodd"
-                  d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"></path>
-          </svg>
-          컨텐츠 구매
-        </button>
-      </div>
     </div>
   </div>
 </form>
+
+<!-- 컨텐츠 구매 버튼 -->
+<form th:action="@{/purchaseContent}" method="post">
+  <div class="cart-order d-flex justify-content-center">
+
+    <button type="button" class="btn btn-outline-danger" id="purchaseButton" onclick="setCartId()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+           class="bi bi-bag-heart" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"></path>
+      </svg>
+      컨텐츠 구매하기
+      <input type="hidden" name="cartId" id="purchaseCartId" th:value="">
+      <input type="hidden" name="memberId" th:value="${loginMember.id}">
+    </button>
+
+  </div>
+</form>
+
+<script>
+  function setCartId() {
+    var selectedCartId = document.querySelector('input[name="cartId"]:checked').value;
+    document.getElementById('purchaseCartId').value = selectedCartId;
+  }
+</script>
+
 <!---footer---------->
 <footer class="footer text-center mt-5 text-muted">
   <small>Copyright 2023. 🌰flix (Bamflix) All rights reserved.</small>

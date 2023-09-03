@@ -16,14 +16,21 @@ public interface CartMapper {
     /**
      * 멤버 아이디로 해당 멤버가 찜한 컨텐츠 전부 겟또
      * @param memberId - 멤버 id
-     * @return - c.id, c.title, c.img_path, c.price, c.delete_yn, f.created_at
+     * @return - f.id, c.title, c.img_path, c.price, c.delete_yn, f.created_at
      */
     List<CartContentResponse> getContentsByMemberId(Long memberId);
 
     /**
      * 찜한 컨텐츠 삭제
-     * @param contentId - 컨텐츠 아이디
+     * @param cartId - 컨텐츠 아이디
      * @param memberId  - 멤버 아이디
      */
-    void deleteContentById(Long contentId, Long memberId);
+    void deleteContentById(Long cartId, Long memberId);
+
+    /**
+     * member id 로 cart id 가져오기
+     * @param memberId - member id
+     * @return - cart id
+     */
+    Long getCartId(Long memberId);
 }
