@@ -23,6 +23,12 @@
         from content where genre=#{genre} and delete_yn = 0;
     </select>
 
+    <select id="getSearchList" resultType="com.bamflix.domain.content.ContentResponse">
+        SELECT id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn
+        FROM content
+        WHERE title LIKE CONCAT('%', #{title}, '%') AND delete_yn = 0;
+    </select>
+
     <insert id="save" keyProperty="id" useGeneratedKeys="true" parameterType="com.bamflix.domain.content.ContentRequest">
         insert into content (id, title, summary, img_name, img_path, uploaded_at, create_country, create_year, is_subscribe_yn, category, genre, director, price, delete_yn)
         VALUES (
