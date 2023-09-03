@@ -17,19 +17,7 @@ public interface ContentMapper {
 
     ContentResponse getContent(String title);
 
-    List<ContentResponse> getMovieList();
+    List<ContentResponse> getCategoryList(String category);
 
-    List<ContentResponse> getDramaList();
-
-    List<ContentResponse> getEntertainmentList();
-
-    List<ContentResponse> getAnimationList();
-
-    List<ContentResponse> getActionList();
-
-    List<ContentResponse> getComicList();
-
-    List<ContentResponse> getRomanceList();
-
-    List<ContentResponse> getSfList();
+    List<ContentResponse> getGenreList(String genre);
 }

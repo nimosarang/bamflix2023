@@ -126,10 +126,10 @@
           <a class="nav-link dropdown-toggle" href="#" id="navcateDropdown" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
           <ul class="dropdown-menu" aria-labelledby="navcateDropdown">
-            <li><a class="dropdown-item" th:href="@{/movie}">영화</a></li>
-            <li><a class="dropdown-item" th:href="@{/drama}">드라마</a></li>
-            <li><a class="dropdown-item" th:href="@{/entertainment}">예능</a></li>
-            <li><a class="dropdown-item" th:href="@{/animation}">애니</a></li>
+            <li><a class="dropdown-item" th:href="@{/category(category='영화')}">영화</a></li>
+            <li><a class="dropdown-item" th:href="@{/category(category='드라마')}">드라마</a></li>
+            <li><a class="dropdown-item" th:href="@{/category(category='예능')}">예능</a></li>
+            <li><a class="dropdown-item" th:href="@{/category(category='애니')}">애니</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -139,10 +139,10 @@
           <a class="nav-link dropdown-toggle" href="#" id="navgenDropdown" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">장르</a>
           <ul class="dropdown-menu" aria-labelledby="navgenDropdown">
-            <li><a class="dropdown-item" th:href="@{/action}">액션</a></li>
-            <li><a class="dropdown-item" th:href="@{/romance}">로맨스</a></li>
-            <li><a class="dropdown-item" th:href="@{/comic}">코미디</a></li>
-            <li><a class="dropdown-item" th:href="@{/sf}">SF</a></li>
+            <li><a class="dropdown-item" th:href="@{/genre(genre='Action')}">액션</a></li>
+            <li><a class="dropdown-item" th:href="@{/genre(genre='Romance')}">로맨스</a></li>
+            <li><a class="dropdown-item" th:href="@{/genre(genre='Comic')}">코미디</a></li>
+            <li><a class="dropdown-item" th:href="@{/genre(genre='SF')}">SF</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
