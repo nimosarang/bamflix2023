@@ -18,13 +18,7 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping("/addToCart")
-    public String addContentInCart(@RequestParam Long contentId, @RequestParam Long memberId) {
-
-        CartRequest cartRequest = CartRequest.builder()
-            .memberId(memberId)
-            .contentId(contentId)
-            .build();
-
+    public String addContentInCart(CartRequest cartRequest) {
         cartService.addContent(cartRequest);
         return "redirect:/main";
     }
