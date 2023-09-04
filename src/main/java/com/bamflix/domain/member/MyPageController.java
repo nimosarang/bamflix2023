@@ -27,8 +27,10 @@ public class MyPageController {
             return "redirect:/login";
         }
 
+        OrderResponse orderResponse = orderService.getOrderHistory(memberResponse.getId());
 
         model.addAttribute("memberResponse", memberResponse);
+        model.addAttribute("orderResponse", orderResponse);
 
         return "member/mypage";
     }

@@ -24,4 +24,10 @@
                 #{state}
                 )
     </insert>
+    <select id="selectOrderHistory" resultType="com.bamflix.domain.order.OrderResponse">
+        select h.id, h.subscription_id, h.member_id, h.start_date, h.end_date, h.state, s.name as subscription_name
+        from member_subscription_history h INNER JOIN subscription s ON h.subscription_id = s.id
+        where h.member_id = #{memberId};
+
+    </select>
 </mapper>

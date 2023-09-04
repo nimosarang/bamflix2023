@@ -158,18 +158,19 @@
     </a>
 
   </div>
+  <br>
   <div class="container">
     <h2 class="title">내 구독 정보</h2>
 
     <div>
-      <p>구독권명: <span th:text="${}"></span></p>
-      <p>구독 시작일: <span th:text="${}"></span></p>
-      <p>구독 종료일: <span th:text="${}"></span></p>
+      <p>구독권명: <span th:text="${orderResponse.getSubscriptionName()}"></span></p>
+      <p>구독 시작일: <span th:text="${orderResponse.getStartDate()}"></span></p>
+      <p>구독 종료일: <span th:text="${orderResponse.getEndDate()}"></span></p>
     </div>
 
     <!-- 구독 취소 버튼 -->
-    <a class="btn btn-danger" th:if="${memberResponse != null}"
-       th:onclick="'javascript: confirmAndDelete(' + ${memberResponse.id} + ')'" href="#">
+    <a class="btn btn-danger" th:if="${orderResponse.isState() == true}"
+       th:onclick="" href="#">
       구독 취소
     </a>
 

@@ -410,31 +410,45 @@
                 //결제 성공시 로직
                 data.imp_uid = rsp.imp_uid;
                 data.merchant_uid = rsp.merchant_uid;
-                paymentComplete(data);
+
+                console.log(data);
+                // paymentComplete(data);
+
+                $.ajax({
+                    url: "/order/payment/complete",
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    data: data,
+                })
+                    .done(function() {
+                        location.href = '/order/order_details';
+                    })
 
             } else {
                 console.log("rsp : " + rsp);
                 alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+                location.href = '/subscription-page';
             }
         });
     }
 
-    function paymentComplete(data){
-
-        $.ajax({
-            url: "/order/payment/complete",
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            data: data,
-        })
-            .done(function() {
-                location.href = '/order/order_details';
-            })
-            .fail(function() {
-                alert("결제에 실패하였습니다.");
-                location.href='/subscription';
-            })
-    }
+    // function paymentComplete(data){
+    //     console.log(data);
+    //
+    //     $.ajax({
+    //         url: "/order/payment/complete",
+    //         method: "post",
+    //         headers: { "Content-Type": "application/json" },
+    //         data: data,
+    //     })
+    //         .done(function() {
+    //             location.href = '/order/order_details';
+    //         })
+    //         .fail(function() {
+    //             alert("결제에 실패하였습니다.");
+    //             location.href='/subscription';
+    //         })
+    // }
 
 
     function paymentCash(){
