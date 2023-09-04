@@ -9,7 +9,7 @@ public class OrderResponse {
 
     private Long id;
     private Long subscriptionId;
-    private Long memberID;
+    private Long memberId;
     private String subscriptionName;
     private LocalDate startDate;
     private LocalDate endDate;

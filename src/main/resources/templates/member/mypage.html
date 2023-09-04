@@ -170,7 +170,7 @@
 
     <!-- 구독 취소 버튼 -->
     <a class="btn btn-danger" th:if="${orderResponse.isState() == true}"
-       th:onclick="" href="#">
+       th:onclick="'javascript: mySubscriptionCancel(' + ${orderResponse.getMemberId()} + ')'" href="#">
       구독 취소
     </a>
 
@@ -201,6 +201,26 @@
         console.error('탈퇴 중 오류 발생:', error);
         alert('회원 탈퇴 중 오류가 발생했습니다.');
       });
+    }
+  }
+
+  function mySubscriptionCancel(memberId){
+
+    if(confirm('구독권 취소 시 남은 일자는 사라집니다. 그래도 취소하시겠습니까?')){
+
+        fetch('/subscription_cancel/' + memberId, {
+          method: 'PUT'
+        }).then(response => {
+          if (response.ok) {
+            alert('구독권 취소가 성공적으로 처리되었습니다.');
+            window.location.href = '/mypage';
+          } else {
+            alert('구독권 취소 중 오류가 발생했습니다.');
+          }
+        }).catch(error => {
+          console.error('구독권 취소 중 오류 발생:', error);
+          alert('구독권 취소 중 오류가 발생했습니다.');
+        });
     }
   }
 </script>

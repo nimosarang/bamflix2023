@@ -20,4 +20,6 @@ public interface OrderMapper {
     void insertMemSubResult(OrderRequest request);
 
     OrderResponse selectOrderHistory(Long memberId);
+
+    void updateMySubscriptionState(Long memberId);
 }

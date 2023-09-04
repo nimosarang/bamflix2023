@@ -85,8 +85,13 @@ public class OrderService {
         orderMapper.insertMemSubResult(orderRequest);
     }
 
+    // 구독권 결제 완료시 히스토리 생성
     public OrderResponse getOrderHistory(Long memberId){
         return orderMapper.selectOrderHistory(memberId);
+    }
+
+    public void MySubscriptionState(Long memberId) {
+        orderMapper.updateMySubscriptionState(memberId);
     }
 
 

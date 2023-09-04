@@ -5,10 +5,7 @@ import com.bamflix.domain.member.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -96,6 +93,16 @@ public class OrdersController {
         orderService.paymentInfo(orderInfo.getImpUid(), token);
 
         return "redirect:/order/order_details";
+    }
+
+    //구독권 취소
+    @PutMapping("/subscription_cancel/{memberId}")
+    @ResponseBody
+    public String mySubscriptionCancel(Model model, HttpSession session, @PathVariable Long memberId){
+
+        orderService.MySubscriptionState(memberId);
+
+        return "redirect:/mypage";
     }
 
 }
