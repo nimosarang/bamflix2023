@@ -4,12 +4,49 @@
 
 <mapper namespace="com.bamflix.domain.purchase.PurchaseMapper">
 
-  <insert id="addPurchase" parameterType="com.bamflix.domain.purchase.PurchaseRequest" useGeneratedKeys="true" keyProperty="id">
+  <insert id="addPurchase" parameterType="com.bamflix.domain.purchase.PurchaseRequest"
+    useGeneratedKeys="true" keyProperty="id">
     INSERT INTO purchase (id, member_id, content_id, purchase_at)
     VALUES (#{id},
             #{memberId},
             #{contentId},
             NOW())
   </insert>
+
+  <delete id="deletePurchaseById" parameterType="long">
+    DELETE
+    FROM purchase
+    WHERE content_id = #{contentId}
+      AND member_id = #{memberId}
+  </delete>
+
+  <select id="getAllPurchase" parameterType="long"
+    resultType="com.bamflix.domain.purchase.PurchaseResponse">
+    SELECT DISTINCT cart_id,
+                    purchase_id,
+                    member_id,
+                    content_id,
+                    added_to_cart_at,
+                    purchase_at,
+                    content_title,
+                    content_summary,
+                    content_img_name,
+                    content_img_path,
+                    content_uploaded_at,
+                    content_is_subscribe_yn,
+                    content_price,
+                    content_category,
+                    content_genre
+    FROM view_purchase_details
+    WHERE member_id = #{memberId}
+      AND purchase_at IS NOT NULL;
+  </select>
+
+  <!-- cart_id 중복 체크 -->
+  <select id="checkPurchaseIdByCartId" parameterType="long" resultType="long">
+    SELECT purchase_id
+    FROM view_purchase_details
+    where cart_id = #{cartId}
+  </select>
 
 </mapper>

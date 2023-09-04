@@ -28,4 +28,17 @@ public class PurchaseService {
             purchaseMapper.addPurchase(purchaseRequest);
         }
     }
+
+    public List<PurchaseResponse> getAllPurchaseById(Long memberId) {
+        return purchaseMapper.getAllPurchase(memberId);
+    }
+
+    public void deletePurchaseById(Long contentId, Long memberId) {
+        purchaseMapper.deletePurchaseById(contentId,memberId);
+    }
+
+    public List<Long> checkPurchaseIdByCartId(List<Long> cartIds) {
+       return purchaseMapper.checkPurchaseIdByCartId(cartIds);
+    }
+
 }
