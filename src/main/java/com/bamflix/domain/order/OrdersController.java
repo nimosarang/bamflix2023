@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -57,11 +58,11 @@ public class OrdersController {
     }
 
     //신용카드 결제완료
-    @PostMapping("/order/payment/complete")
-    public String paymentComplete(){
-        System.out.println("결제완료 페이지");
-        return "order/order_detail";
-    }
+//    @PostMapping("/order/payment/complete")
+//    public String paymentComplete(){
+//        System.out.println("결제완료 페이지");
+//        return "order/order_detail";
+//    }
 
     //현금 결제완료
     @PostMapping("/order/cash/complete")
@@ -79,4 +80,22 @@ public class OrdersController {
 
         return "redirect:/order/order_details";
     }
+
+//    카드결제 완료 페이지
+    @PostMapping("/order/payment/complete")
+    public String paymentComplete(@RequestBody String imp_uid, HttpSession session, OrderInfo orderInfo,
+                                  Long totalPrice) throws IOException {
+
+        String token = orderService.getToken();
+
+        System.out.println("토큰 : " + token);
+
+        System.out.println("imp_uid request : " + imp_uid);
+        System.out.println("orderInfo.getImpUid : " + orderInfo.getImpUid());
+
+        orderService.paymentInfo(orderInfo.getImpUid(), token);
+
+        return "redirect:/order/order_details";
+    }
+
 }

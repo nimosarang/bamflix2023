@@ -85,6 +85,10 @@ public class OrderService {
         orderMapper.insertMemSubResult(orderRequest);
     }
 
+    public OrderResponse getOrderHistory(Long memberId){
+        return orderMapper.selectOrderHistory(memberId);
+    }
+
 
     @ToString
     @Getter

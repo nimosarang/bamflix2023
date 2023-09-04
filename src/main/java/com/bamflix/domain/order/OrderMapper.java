@@ -18,4 +18,6 @@ public interface OrderMapper {
 //    List<SubscriptionResponse> selectSubList();
 
     void insertMemSubResult(OrderRequest request);
+
+    OrderResponse selectOrderHistory(Long memberId);
 }
