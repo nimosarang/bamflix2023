@@ -46,7 +46,6 @@ public class ContentController {
 
     @PostMapping("/save")
     public String save(ContentRequest content, MultipartFile imgFile) throws Exception {
-
         contentService.saveContent(content, imgFile);
 
         return "redirect:detail";
@@ -62,8 +61,8 @@ public class ContentController {
 
     @GetMapping("/category")
     public String category(Model model, String category) {
-        List<ContentResponse> categorys = contentService.getCategoryList(category);
-        model.addAttribute("contents", categorys);
+        List<ContentResponse> categoryList = contentService.getCategoryList(category);
+        model.addAttribute("contents", categoryList);
 
         return "content/categoryContent";
     }
