@@ -244,38 +244,30 @@
             <td>구매자명</td>
             <td colspan="4" th:if="${loginMember != null}">
                 <span th:text="${loginMember.name}"></span>
+                <input type="hidden" name="buyer_id" th:value="${loginMember.id}">
                 <input type="hidden" name="buyer_name" th:value="${loginMember.name}">
                 <input type="hidden" name="buyer_email" th:value="${loginMember.email}">
                 <input type="hidden" name="buyer_phone" th:value="${loginMember.phone}">
             </td>
         </tr>
-        <div th:if="${showSubscription}">
-        <tr>
-            <td colspan="5">구독권 구매</td>
-        </tr>
-        <tr th:each="data : ${selectList}">
-            <td><img src="/css/order/img/lonely.png" alt="lonely_icon" style="width: 50px; height: 50px"></td>
-            <td>
-                <span th:text="${data.name}"></span>
-                <input type="hidden" name="product_name" th:value="${data.name}">
-            </td>
-            <td>
-                <span th:text="${data.price}">원 /(30일)</span>
-                <input type="hidden" name="product_price" th:value="${data.price}">
-            </td>
-            <td>삭제<img src="https://cdn.icon-icons.com/icons2/1144/PNG/512/deletebutton_80861.png" alt="delete_icon" style="width: 10px; height: 10px"></td>
-        </tr>
-        </div>
-        <div th:if="${showIndividual}">
-        <tr>
-            <td colspan="5">개별 구매</td>
-        </tr>
-        <tr>
-            <td>이미지</td>
-            <td>컨텐츠명</td>
-            <td>상품가격</td>
-            <td>삭제버튼</td>
-        </tr>
+        <div>
+            <tr>
+                <td colspan="5">구독권 구매</td>
+            </tr>
+            <tr th:each="data : ${selectList}">
+                <td>
+                    <img src="/css/order/img/lonely.png" alt="lonely_icon" style="width: 50px; height: 50px">
+                    <input type="hidden" name="subscription_id" id="subscription_id" th:value="${data.id}">
+                </td>
+                <td>
+                    <span th:text="${data.name}"></span>
+                    <input type="hidden" name="product_name" th:value="${data.name}">
+                </td>
+                <td>
+                    <span th:text="${data.price}"></span>원
+                </td>
+                <td><span th:text="${data.validityDays}"></span>일</td>
+            </tr>
         </div>
         <tr>
             <td colspan="5">결제수단</td>
@@ -326,25 +318,36 @@
             alert("주문 동의를 해야 결제 가능합니다.")
         }else{
             if(paymentChk[idx].value === "credit"){
-                payment();
+                // payment();
+
+                const data = {
+                    merchant_uid: createOrderNum(),
+                    name : getNames(),
+                    amount : getAmount(),
+                    buyer_email: document.querySelector("input[name=buyer_email]").value,
+                    buyer_name: document.querySelector("input[name=buyer_name]").value,
+                    buyer_tel: document.querySelector("input[name=buyer_phone]").value
+                }
+                requestPay(data);
+
             }else{
                 paymentCash();
             }
         }
     }
 
-    function payment(){
-        const data = {
-            merchant_uid: createOrderNum(),
-            name : getNames(),
-            amount : getAmount(),
-            buyer_email: document.querySelector("input[name=buyer_email]").value,
-            buyer_name: document.querySelector("input[name=buyer_name]").value,
-            buyer_tel: document.querySelector("input[name=buyer_phone]").value
-        }
-
-        requestPay(data);
-    }
+    // function payment(){
+    //     const data = {
+    //         merchant_uid: createOrderNum(),
+    //         name : getNames(),
+    //         amount : getAmount(),
+    //         buyer_email: document.querySelector("input[name=buyer_email]").value,
+    //         buyer_name: document.querySelector("input[name=buyer_name]").value,
+    //         buyer_tel: document.querySelector("input[name=buyer_phone]").value
+    //     }
+    //
+    //     requestPay(data);
+    // }
 
     function createOrderNum(){
         const today = new Date();
@@ -407,7 +410,6 @@
                 //결제 성공시 로직
                 data.imp_uid = rsp.imp_uid;
                 data.merchant_uid = rsp.merchant_uid;
-                console.log("data : " + data);
                 paymentComplete(data);
 
             } else {
@@ -425,19 +427,43 @@
             headers: { "Content-Type": "application/json" },
             data: data,
         })
-        .done(function() {
-            location.href = '/order/order_detail';
-        })
-        .fail(function() {
-            alert("결제에 실패하였습니다.");
-            location.href='/subscription';
-        })
+            .done(function() {
+                location.href = '/order/order_details';
+            })
+            .fail(function() {
+                alert("결제에 실패하였습니다.");
+                location.href='/subscription';
+            })
     }
 
 
     function paymentCash(){
+        const subscriptionId = document.querySelector("input[name='subscription_id']").value
+        const memberId = document.querySelector("input[name='buyer_id']").value
+
         alert("현금결제입니다.");
-        location.href="/order/order_detail";
+        // location.href="/order/order_details";
+        console.log("subId : " + subscriptionId);
+        console.log("memId : " + memberId);
+
+        const requestData = {
+            subscriptionId : subscriptionId,
+            memberId : memberId
+        };
+
+        $.ajax({
+            url: "/order/cash/complete",
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            data: JSON.stringify(requestData),
+        })
+            .done(function() {
+                location.href = '/order/order_details';
+            })
+            .fail(function() {
+                alert("결제에 실패하였습니다.");
+                location.href='/subscription';
+            })
     }
 </script>
 
