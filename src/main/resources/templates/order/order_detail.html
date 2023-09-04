@@ -102,24 +102,25 @@
 
 <h2><span th:text="${loginMember.name}"></span>님, 결제가 완료되었습니다.</h2>
 <form>
-    <table border="1">
+    <table border="1"
+           th:each="data : ${selectList}">
         <tr>
             <td colspan="5">구매 목록</td>
         </tr>
-        <tr th:each="data : ${selectList}">
+        <tr>
             <td><img src="/css/order/img/lonely.png" alt="lonely_icon" style="width: 50px; height: 50px"></td>
             <td>
                 <span th:text="${data.name}"></span>
                 <input type="hidden" name="product_name" th:value="${data.name}">
             </td>
             <td>
-                <span th:text="${data.price}"></span>원 /(30일)
+                <span th:text="${data.price}"></span>원 /(<span th:text="${data.validityDays}"></span>일)
                 <input type="hidden" name="product_price" th:value="${data.price}">
             </td>
         </tr>
         <tr>
-            <td colspan="2">총 구매개수</td>
-            <td>총 결제금액</td>
+            <td colspan="2">총 구매개수 <span th:text="${dataStat.count}"></span>개</td>
+            <td>총 결제금액 <span th:text="${data.price}"></span>원</td>
         </tr>
 
     </table>

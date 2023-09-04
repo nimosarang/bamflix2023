@@ -13,5 +13,15 @@
         from subscription
         where id = #{id}
     </select>
-
+    <insert id="insertMemSubResult" parameterType="com.bamflix.domain.order.OrderRequest" keyProperty="id" useGeneratedKeys="true">
+        insert into member_subscription_history (id, subscription_id, member_id, start_date, end_date, state)
+        values (
+                #{id},
+                #{subscriptionId},
+                #{memberId},
+                #{startDate},
+                #{endDate},
+                #{state}
+                )
+    </insert>
 </mapper>

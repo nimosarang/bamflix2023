@@ -15,6 +15,7 @@ import lombok.ToString;
 public class CartContentResponse {
 
     private Long id;
+    private Long cartId;
     private String title;
     private String imgPath;
     private Integer price;
