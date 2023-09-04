@@ -22,4 +22,5 @@ public interface ContentMapper {
     List<ContentResponse> getGenreList(String genre);
 
     List<ContentResponse> getSearchList(String title);
+
 }

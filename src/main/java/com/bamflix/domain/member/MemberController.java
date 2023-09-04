@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -43,6 +44,12 @@ public class MemberController {
     @ResponseBody
     public MemberResponse findMemberByLoginId(@PathVariable final String loginId) {
         return memberService.findMemberByLoginId(loginId);
+    }
+
+    @GetMapping("/editProfile")
+    public String updateMember(Model model , String id) {
+        model.addAttribute("id", id);
+        return "member/editProfile";
     }
 
     // 회원 정보 수정

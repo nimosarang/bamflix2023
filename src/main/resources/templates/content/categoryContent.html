@@ -140,7 +140,10 @@
 <main class="container-fluid">
   <div class="card-group contentCard">
     <section style="display: flex" id="section1">
-      <h2>Action</h2>
+      <div class="card">
+          <span th:text="${Action}"></span>
+      </div>
+
       <div class="card" th:each="content : ${contents}">
         <div th:if="${#strings.equals(content.genre, 'Action')}">
           <a th:href="@{/contentDetail(title=${content.title})}">
@@ -152,7 +155,12 @@
 
     <br><br>
     <section style="display: flex" id="section2">
-      <h2>Romance</h2>
+      <div class="card" th:each="content : ${contents}">
+        <div th:if="${#strings.equals(content.genre, 'Romance')}">
+          <h2>Romance</h2>
+        </div>
+      </div>
+
       <div class="card" th:each="content : ${contents}">
         <div th:if="${#strings.equals(content.genre, 'Romance')}">
           <a th:href="@{/contentDetail(title=${content.title})}">
@@ -164,7 +172,11 @@
 
     <br><br>
     <section style="display: flex" id="section3">
-      <h2>Comic</h2>
+      <div class="card" th:each="content : ${contents}">
+        <div th:if="${#strings.equals(content.genre, 'Comic')}">
+          <h2>Comic</h2>
+        </div>
+      </div>
       <div class="card" th:each="content : ${contents}">
         <div th:if="${#strings.equals(content.genre, 'Comic')}">
           <a th:href="@{/contentDetail(title=${content.title})}">
@@ -176,7 +188,11 @@
 
     <br><br>
     <section style="display: flex" id="section4">
-      <h2>SF</h2>
+      <div class="card" th:each="content : ${contents}">
+        <div th:if="${#strings.equals(content.genre, 'SF')}">
+          <h2>SF</h2>
+        </div>
+      </div>
       <div class="card" th:each="content : ${contents}">
         <div th:if="${#strings.equals(content.genre, 'SF')}">
           <a th:href="@{/contentDetail(title=${content.title})}">
