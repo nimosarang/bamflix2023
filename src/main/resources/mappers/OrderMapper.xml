@@ -30,4 +30,8 @@
         where h.member_id = #{memberId};
 
     </select>
+    <update id="updateMySubscriptionState" parameterType="com.bamflix.domain.order.OrderResponse">
+        update member_subscription_history set state = 0, end_date = now()
+        where member_id = #{memberId}
+    </update>
 </mapper>
