@@ -216,9 +216,9 @@
 </form>
 
 <!-- 컨텐츠 결제 버튼 -->
-<form>
+<form th:action="@{/order-from-subscription}">
   <div class="cart-order d-flex justify-content-center">
-    <button type="button" class="btn btn-outline-danger" id="paymentButton">
+    <button type="submit" class="btn btn-outline-danger" id="paymentButton">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"></path>
         <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"></path>
@@ -227,41 +227,6 @@
     </button>
   </div>
 </form>
-
-<script>
-  function handlePurchase() {
-    var selectedIds = [];
-
-    // 선택된 체크박스의 값을 배열에 추가
-    $("input.checkbox-input:checked").each(function () {
-      selectedIds.push($(this).val());
-    });
-
-    // 배열을 JSON 형태로 변환
-    var selectedIdsJSON = JSON.stringify(selectedIds);
-
-    $.ajax({
-      url: "/결제하기",
-      type: "POST",
-      contentType: "application/json",
-      data: selectedIdsJSON,
-      async: true,
-      success: function (response) {
-        window.location.href = "/purchaseList";
-      },
-      error: function (error) {
-        console.error(error);
-      }
-    });
-  }
-
-  // 문서가 로드된 후 실행될 코드
-  $(document).ready(function () {
-    // 컨텐츠 구매 버튼에 클릭 이벤트 리스너 추가
-    var purchaseButton = document.getElementById("paymentButton");
-    purchaseButton.addEventListener("click", handlePurchase);
-  });
-</script>
 
 <!---footer---------->
 <footer class="footer text-center mt-5 text-muted">
