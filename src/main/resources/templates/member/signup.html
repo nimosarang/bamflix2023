@@ -16,7 +16,7 @@
   <section id="backGround">
     <div class="container-fluid relative">
       <header>
-        <img th:src="@{/css/index/img/logo-Netflix.png}" alt="Responsive image LOGO"
+        <img th:src="@{/css/index/img/bamflix_img.png}" alt="Responsive image LOGO"
              class="img-fluid"/>
       </header>
     </div>
@@ -35,14 +35,14 @@
 
       <form class="login" onsubmit="return saveMember(this);">
         <div class="form-group">
-          <input type="text" id="user-id" name="loginId" class="form-control" placeholder="아이디 : 영문" required>
+          <input type="text" id="user-id" name="loginId" class="form-control" placeholder="아이디" required>
           <button type="button" id="idCheckBtn" class="btn btn-primary" onclick="checkLoginId();">중복
             확인
           </button>
         </div>
 
         <div class="form-group">
-          <input type="password" id="user-pw" name="password" class="form-control" placeholder="비밀번호 : 영문 + 숫자 조합" required >
+          <input type="password" id="user-pw" name="password" class="form-control" placeholder="비밀번호" required >
         </div>
 
         <div class="form-group">
@@ -55,7 +55,7 @@
         </div>
 
         <div class="form-group">
-          <input type="email" id="user-email" name="email" class="form-control" placeholder="이메일 : ex)bamflix@email.com" required>
+          <input type="email" id="user-email" name="email" class="form-control" placeholder="이메일" required>
         </div>
 
         <div class="form-group">
