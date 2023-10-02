@@ -1,4 +1,4 @@
-# ![image](https://github.com/bams2023/bamflix2023/assets/111734043/4954fe9a-29e4-45e2-be7f-75e52bdf8314)flix2023 
+# Bamflix2023 
 
 # 밤플릭스
 
